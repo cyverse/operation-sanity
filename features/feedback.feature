@@ -10,8 +10,7 @@ Feature: Atmosphere feedback form
     And I fill in "password" with "Mctesterson1"
     And I press "LOGIN"
     And I press "Feedback"
-    And I set the value of the text area with class "form-control" to "This is a test"
-#    And I set the inner HTML of the element with class "form-control" to "This is a test by an automated behave script written by the interns, close me!"
-    And I enable the submit feedback button
+    Then I should see "Are you experiencing a problem" within 5 seconds
+    And I type "wow such feedback" to class "form-control"
     And I press "Send feedback"
-    Then I should see "Thanks for your feedback!" within 500 seconds
+    Then I should see "Thanks for your feedback!" within 5 seconds
