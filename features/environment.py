@@ -8,7 +8,7 @@ def before_all(context):
 
 
 def after_all(context):
-    benv.after_all(context, feature)
+    benv.after_all(context)
 
 
 def before_feature(context, feature):
