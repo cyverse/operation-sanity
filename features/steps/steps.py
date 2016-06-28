@@ -14,10 +14,3 @@ def i_type_to_class(context, klass, value):
         u'Element not found or could not set name'
     for key in context.browser.type(name, value, slowly=True):
         assert key
-
-# Working, non-nuclear version
-@step(u'I type "{value}" to class "{klass}"')
-@persona_vars
-def i_type_to_xpath(context, klass, value):
-    for key in context.browser.type_to_xpath(klass, value, slowly=True):
-        assert key
