@@ -7,8 +7,6 @@ Feature: Atmosphere feedback form
   Scenario: Enter Atmosphere Feedback
     When I visit "https://atmo.iplantcollaborative.org/application"
     And I press "Login"
-    And I fill in "username" with "$username"
-    And I fill in "password" with "$password"
     And I press "LOGIN"
     And I press "Feedback"
     Then I should see "Are you experiencing a problem" within 5 seconds
