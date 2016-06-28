@@ -1,7 +1,13 @@
 import os
 from behaving import environment as benv
 
-PERSONAS = {}
+PERSONAS = {
+    'Test_user': dict(
+            username=os.environ['SANITYUSER'],
+            password=os.environ['SANITYPASS']
+        )
+}
+
 
 def before_all(context):
     benv.before_all(context)
