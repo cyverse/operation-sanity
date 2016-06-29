@@ -1,4 +1,4 @@
-Feature: Atmosphere feedback form
+Feature: Atmosphere "Need more?" resource request
 
   Background:
     Given a browser
@@ -10,7 +10,9 @@ Feature: Atmosphere feedback form
     And I fill in "username" with "$username"
     And I fill in "password" with "$password"
     And I press "LOGIN"
-    And I press "Need More?"
-    And I set the inner HTML of the element with class "form-control" to "This is a test by an automated behave script written by the interns, close me!"
-    And I press "Send feedback"
-    Then I should see "Thanks for your feedback!" within 20 seconds
+    Then I should see "Need more?" within 10 seconds
+    And I press "Need more?"
+    Then I should see "What cloud would you like resources for?" within 10 seconds
+    And I ask for "100 AU" resources for "this is just a test" reason
+    And I press "Request Resources"
+    Then I should see "Resource Request submitted" within 20 seconds
