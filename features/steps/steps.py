@@ -39,3 +39,10 @@ def i_press_report(context):
     element = context.browser.find_by_xpath( "//*[@class='section-link']//span[contains(string(), 'Report')]")
     assert element, u'Element not found'
     element.first.click()
+
+@step(u'I press Attach')
+@persona_vars
+def i_press_attach(context):
+    element = context.browser.find_by_xpath( "//*[@class='section-link']//span[contains(string(), 'Attach')]")
+    assert element, u'Element not found'
+    element.first.click()

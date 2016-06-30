@@ -18,4 +18,4 @@ Feature: Atmosphere launch an instance
     And I press "Launch"
     Then I should see "Launch Instance" within 5 seconds
     And I press "Launch Instance"
-    Then I should see "Active" within 300 seconds
+    Then I should see "Active" within 600 seconds
