@@ -32,3 +32,10 @@ def i_request_resources(context, resources, reason):
         u'Element not found or could not set name'
     for key in context.browser.type(name2, reason, slowly=True):
         assert key
+
+@step(u'I press Report')
+@persona_vars
+def i_press_report(context):
+    element = context.browser.find_by_xpath( "//*[@class='section-link']//span[contains(string(), 'Report')]")
+    assert element, u'Element not found'
+    element.first.click()

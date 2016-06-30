@@ -4,7 +4,7 @@ Feature: Atmosphere launch an instance
     Given a browser
     Given "Test_user" as the persona
 
-  Scenario: Request More Resources
+  Scenario: Launch an Instance
     When I visit "https://atmo.iplantcollaborative.org/application"
     And I press "Login"
     And I fill in "username" with "$username"

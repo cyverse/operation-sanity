@@ -4,7 +4,7 @@ Feature: Atmosphere "Need more?" resource request
     Given a browser
     Given "Test_user" as the persona
 
-  Scenario: Enter Atmosphere Feedback
+  Scenario: Request More Resources
     When I visit "https://atmo.iplantcollaborative.org/application"
     And I press "Login"
     And I fill in "username" with "$username"
