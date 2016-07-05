@@ -14,6 +14,15 @@ def i_type_to_class(context, klass, value):
     for key in context.browser.type(name, value, slowly=True):
         assert key
 
+@step(u'I type slowly "{value}" to "{index}" index of class "{klass}"')
+@persona_vars
+def i_type_to_class(context, klass, value, index):
+    name = "temp_form_name" + str(index)
+    assert context.browser.evaluate_script("document.getElementsByClassName('%s')[%s].name = '%s'" % (klass, index, name)), \
+        u'Element not found or could not set name'
+    for key in context.browser.type(name, value, slowly=True):
+        assert key
+
 @step(u'I ask for "{resources}" resources for "{reason}" reason')
 @persona_vars
 def i_request_resources(context, resources, reason):
