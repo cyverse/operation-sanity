@@ -5,7 +5,7 @@ Feature: Atmosphere "Need more?" resource request
     Given "Test_user" as the persona
 
   Scenario: Request More Resources
-    When I visit "https://atmo.iplantcollaborative.org/application"
+    When I visit "$Atmosphere"
     And I press "Login"
     And I fill in "username" with "$username"
     And I fill in "password" with "$password"

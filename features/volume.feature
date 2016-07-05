@@ -5,7 +5,7 @@ Feature: Atmosphere attach a volume
     Given "Test_user" as the persona
 
   Scenario: Attach a Volume
-    When I visit "https://atmo.iplantcollaborative.org/application"
+    When I visit "$Atmosphere"
     And I press "Login"
     And I fill in "username" with "$username"
     And I fill in "password" with "$password"

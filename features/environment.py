@@ -4,7 +4,8 @@ from behaving import environment as benv
 PERSONAS = {
     'Test_user': dict(
             username=os.environ['SANITYUSER'],
-            password=os.environ['SANITYPASS']
+            password=os.environ['SANITYPASS'],
+            Atmosphere="https://atmo.iplantcollaborative.org/application"
         )
 }
 
