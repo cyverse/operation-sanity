@@ -1,7 +1,6 @@
 Feature: Atmosphere "Need more?" resource request
 
   Background:
-    Given a browser
     Given "Test_user" as the persona
 
   Scenario: Request More Resources

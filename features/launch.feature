@@ -1,7 +1,6 @@
 Feature: Atmosphere launch an instance
 
   Background:
-    Given a browser
     Given "Test_user" as the persona
 
   Scenario: Launch an Instance
@@ -17,5 +16,6 @@ Feature: Atmosphere launch an instance
     Then I should see "Launch" within 5 seconds
     And I press "Launch"
     Then I should see "Launch Instance" within 5 seconds
+    Then I should see "alloted GBs of Memory" within 5 seconds
     And I press "Launch Instance"
     Then I should see "Active" within 600 seconds

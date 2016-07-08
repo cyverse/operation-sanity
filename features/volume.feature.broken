@@ -1,7 +1,6 @@
 Feature: Atmosphere attach a volume
 
   Background:
-    Given a browser
     Given "Test_user" as the persona
 
   Scenario: Attach a Volume
@@ -11,18 +10,28 @@ Feature: Atmosphere attach a volume
     And I fill in "password" with "$password"
     And I press "LOGIN"
     And I press "Projects"
-    Then I should see "Test-Project" within 5 seconds
+    Then I should see "Test-Project" within 10 seconds
     And I press "Test-Project"
+    Then I should see "Test-Instance" within 10 seconds
+    And I press "Test-Instance"
+    # activate instance
+    And I press Resume
+    Then I should see "Yes" within 10 seconds
+    And I press "Yes"
+    Then I should see "Active" 600 seconds
+    Then I should see "Resources" within 10 seconds
+    And I press "Resources"
     And I press "New"
     And I press "Volume"
-    Then I should see "Create volume" within 5 seconds
+    Then I should see "Create volume" within 10 seconds
     And I type "New-Volume-Name" to class "form-control"
     And I press "Create volume"
-    Then I should see "New-Volume-Name" within 5 seconds
+    Then I should see "New-Volume-Name" within 10 seconds
     And I press "New-Volume-Name"
-    Then I should see "Attach" within 5 seconds
+    Then I should see "Attach" within 10 seconds
     And I press Attach
-    Then I should see "Attach volume to instance" within 5 seconds
+    Then I should see "Attach volume to instance" within 10 seconds
     And I press "Attach volume to instance"
     Then I should see "Attached To " within 20 seconds
+    # deactivate instance
 

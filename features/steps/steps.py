@@ -5,6 +5,17 @@ from behaving.notifications.gcm.steps import *
 from behaving.personas.steps import *
 from behaving.personas.persona import persona_vars
 
+@when(u'I login to Atmosphere')
+@persona_vars
+def i_login_to_atmo(context):
+    context.execute_steps('''
+        When I visit "$Atmosphere"
+        And I press "Login"
+        And I fill in "username" with "$username"
+        And I fill in "password" with "$password"
+        And I press "LOGIN"
+    ''')
+
 @step(u'I type "{value}" to class "{klass}"')
 @persona_vars
 def i_type_to_class(context, klass, value):
@@ -55,3 +66,11 @@ def i_press_attach(context):
     element = context.browser.find_by_xpath( "//*[@class='section-link']//span[contains(string(), 'Attach')]")
     assert element, u'Element not found'
     element.first.click()
+
+@step(u'I press Resume')
+@persona_vars
+def i_press_report(context):
+    element = context.browser.find_by_xpath( "//*[@class='section-link']//span[contains(string(), 'Resume')]")
+    assert element, u'Element not found'
+    element.first.click()
+

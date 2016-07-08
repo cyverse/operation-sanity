@@ -1,0 +1,12 @@
+#Feature: Atmosphere cleanup all instances, volumes, links, and projects
+#
+#  Background:
+#    Given "Test_user" as the persona
+#
+#  Scenario: Cleanup
+#    When I visit "$Atmosphere"
+#    And I press "Login"
+#    And I fill in "username" with "$username"
+#    And I fill in "password" with "$password"
+#    And I press "LOGIN"
+#    Then I should see "Launch New Instance" within 5 seconds

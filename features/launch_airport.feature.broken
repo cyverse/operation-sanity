@@ -1,7 +1,6 @@
-Feature: Atmosphere launch an instance on airport
+"""Feature: Atmosphere launch an instance on airport
 
   Background:
-    Given a browser
     Given "Test_user" as the persona
 
   Scenario: Launch an Instance on airport
@@ -20,3 +19,4 @@ Feature: Atmosphere launch an instance on airport
     And I press "Launch Instance"
     Then I should see "Active" within 600 seconds
     Then I should press "View Current UI"
+"""

@@ -1,7 +1,6 @@
 Feature: Atmosphere create an external link
 
   Background:
-    Given a browser
     Given "Test_user" as the persona
 
   Scenario: Create external link
