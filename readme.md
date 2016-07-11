@@ -15,9 +15,11 @@ Operation Sanity is a set of behavior driven development tests for <a href="http
 
 Additionally, you'll also need to add these lines to your ~/.bash_profile:
 
-`export SANITYUSER=myAtmoUsername`
+`export SANITYUSER=myAtmoUsername`  
 `export SANITYPASS=myAtmoPassword`
 
+Then source it:  
+`source ~/.bash_profile`
 
 ###Run tests:
 `time behave --processes 4 --parallel-element scenario`
