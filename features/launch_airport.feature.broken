@@ -1,4 +1,4 @@
-"""Feature: Atmosphere launch an instance on airport
+Feature: Atmosphere launch an instance on airport
 
   Background:
     Given "Test_user" as the persona
@@ -19,4 +19,3 @@
     And I press "Launch Instance"
     Then I should see "Active" within 600 seconds
     Then I should press "View Current UI"
-"""

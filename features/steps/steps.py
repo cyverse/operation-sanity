@@ -53,6 +53,14 @@ def i_request_resources(context, resources, reason):
     for key in context.browser.type(name2, reason, slowly=True):
         assert key
 
+@step(u'I press span "{span}"')
+@persona_vars
+def i_press_report(context, span):
+    element = context.browser.find_by_xpath( "//*[@class='section-link']//span[contains(string(), '%s')]" % (span))
+    assert element, u'Element not found'
+    element.first.click()
+
+"""
 @step(u'I press Report')
 @persona_vars
 def i_press_report(context):
@@ -81,6 +89,9 @@ def i_press_report(context):
     assert element, u'Element not found'
     element.first.click()
 
+
 @step(u'I should see an element with class "{klass}"')
 def i_see_element_with_class(context):
-    assert context.browser.is_element_present_by_class(klass), u'Element not found'
+    assert context.browser.evaluate_script("document.getElementsByClassName('%s').length > 0" % (klass)), \
+        u'Element not found'
+"""
