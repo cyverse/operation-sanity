@@ -1,6 +1,6 @@
 ##Welcome to Operation Sanity!
 
-Operation Sanity is a set of behavior driven development tests for <a href="https://github.com/iPlantCollaborativeOpenSource/atmosphere">Atmosphere</a> implemented using <a href="https://github.com/behave/behave">Behave</a>, <a href="https://github.com/ggozad/behaving">Behaving</a>, and <a href="https://github.com/vishalm/behave-parallel">Behave-parallel</a>
+Operation Sanity is a set of behavior driven development tests for <a href="https://github.com/iPlantCollaborativeOpenSource/atmosphere">Atmosphere</a> implemented using <a href="https://github.com/behave/behave">Behave</a>, <a href="https://github.com/ggozad/behaving">Behaving</a>, and <a href="https://github.com/vishalm/behave-parallel">Behave-parallel</a>.
 
 ##How to run:
 
@@ -13,5 +13,11 @@ Operation Sanity is a set of behavior driven development tests for <a href="http
 * `source env/bin/activate`
 * `pip install -r requirements.txt`
 
+Additionally, you'll also need to add these lines to your ~/.bash_profile:
+
+`export SANITYUSER=myAtmoUsername`
+`export SANITYPASS=myAtmoPassword`
+
+
 ###Run tests:
-`time behave --processes 4 --parallel-element feature`
+`time behave --processes 4 --parallel-element scenario`

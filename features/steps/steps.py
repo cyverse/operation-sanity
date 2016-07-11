@@ -8,7 +8,7 @@ from behaving.personas.persona import persona_vars
 @when(u'I login to Atmosphere')
 @persona_vars
 def i_login_to_atmo(context):
-    context.execute_steps('''
+    context.execute_steps(u'''
         When I visit "$Atmosphere"
         And I press "Login"
         And I fill in "username" with "$username"
@@ -74,3 +74,13 @@ def i_press_report(context):
     assert element, u'Element not found'
     element.first.click()
 
+@step(u'I press Delete')
+@persona_vars
+def i_press_report(context):
+    element = context.browser.find_by_xpath( "//*[@class='section-link']//span[contains(string(), 'Delete')]")
+    assert element, u'Element not found'
+    element.first.click()
+
+@step(u'I should see an element with class "{klass}"')
+def i_see_element_with_class(context):
+    assert context.browser.is_element_present_by_class(klass), u'Element not found'

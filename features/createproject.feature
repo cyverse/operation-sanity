@@ -4,6 +4,7 @@ Feature: Atmosphere create a project
     Given "Test_user" as the persona
 
   Scenario: Create a project
+    When I login to Atmosphere
     When I visit "$Atmosphere"
     And I press "Login"
     And I fill in "username" with "$username"
