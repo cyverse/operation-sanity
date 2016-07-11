@@ -37,12 +37,10 @@ Feature: Atmosphere test the whole cloud!
     When I login to Atmosphere
     Then I should see "Projects" within 10 seconds
     When I press "Projects"
-    Then I should see "Launch New Instance" within 10 seconds
-    And I press "Projects"
-    Then I should see "Test-Project" within 10 seconds
-    And I press "Test-Project"
-    Then I should see "Test-Instance" within 10 seconds
-    And I press "Test-Instance"
+    Then I should see "BDD-Project" within 10 seconds
+    And I press "BDD-Project"
+    Then I should see "Ubuntu 14.04.2 XFCE Base" within 10 seconds
+    And I press "Ubuntu 14.04.2 XFCE Base"
     Then I should see "Report" within 10 seconds
     And I press span "Report"
     Then I should see "What problems are you having with this instance?" within 10 seconds

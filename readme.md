@@ -5,6 +5,7 @@ Operation Sanity is a set of behavior driven development tests for <a href="http
 ##How to run:
 
 ###Installation: 
+1. Ensure you have firefox 46 installed
 1. Clone this repo 
 1. Go to root of the project
 1. Create a virtual env 
@@ -30,10 +31,19 @@ To run parallel:
 ##To do:
 
 ###Easy: 
-- get phantomJS working: "Given PhantomJS as the default browser"
+- get phantomJS working instead of firefox: "Given PhantomJS as the default browser"
 	- probably have to add to requirements.txt
+	- this is maybe hard
+	- maybe make the browser choice a persona attribute
 - how to launch into specific scenario within a big feature?
+- make launch instance scenario also name the instance "BDD-Instance"
 - parameterize cloud provider and project name as persona attributes
+- condense steps such as these into a single step:
+`Then I should see "Projects" within 10 seconds`  
+    `When I press "Projects"`
+    - this pattern is all over the place and could reduce the total code
+    - "I see and press "Projects"
+    - this step would use context.exec_steps
 
 ###Hard:
 
@@ -41,8 +51,10 @@ Use scenario outlines to cover all featured images at once
 
 - https://pythonhosted.org/behave/tutorial.html cmnd-f for "Scenario Outlines"
 - unique project names per scenario? 
+- not sure how well the outlines would play with our parallelization
+	- maybe outlines are a poor choice
 - The process for checking all 5 featured images will look like:
 	1. launch
 	1. check 
-	1. ssh (TBD)
+	1. ssh <--hard to do item
 	1. cleanup
