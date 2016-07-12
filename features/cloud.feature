@@ -1,3 +1,9 @@
+# This features provides a baseline test for most of the Atmosphere functionality, including:
+# * Creating and deleting a project
+# * Creating, reporting, and deleting an instance
+# * Creating, reporting, and deleting a volume
+# * Creating and deleting an external link
+
 Feature: Atmosphere test the whole cloud!
 
   Background:

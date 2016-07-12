@@ -28,7 +28,7 @@ To run normally:
 To run parallel:  
 `time behave --processes 4 --parallel-element scenario`
 
-To run a single scenario:
+To run a single scenario:  
 `behave -n "Attach a volume"`
 
 
@@ -45,7 +45,6 @@ To run a single scenario:
 
 
 ###Hard:
-
 Use scenario outlines to cover all featured images at once
 
 - https://pythonhosted.org/behave/tutorial.html cmnd-f for "Scenario Outlines"
@@ -55,5 +54,5 @@ Use scenario outlines to cover all featured images at once
 - The process for checking all 5 featured images will look like:
 	1. launch
 	1. check 
-	1. ssh <--hard to do item
+	1. ssh <--standalone hard to do item
 	1. cleanup

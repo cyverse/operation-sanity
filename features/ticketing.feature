@@ -1,3 +1,11 @@
+# This features provides as much standalone ticketing as possible:
+# * Request more resources
+# * Atmosphere feedback
+#
+# The other ticketing scenarioes are, which are included in cloud.feature:
+# * Report an instance
+# * Report a volume
+
 Feature: Atmosphere "Need more?" resource request
 
   Background:
