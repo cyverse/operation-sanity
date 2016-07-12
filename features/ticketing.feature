@@ -5,8 +5,7 @@ Feature: Atmosphere "Need more?" resource request
 
   Scenario: Request More Resources
     When I login to Atmosphere
-    Then I should see "Need more?" within 30 seconds
-    And I press "Need more?"
+    Then I should see and press "Need more?" within 30 seconds
     Then I should see "Request Resources" within 30 seconds
     And I ask for "0 AU" resources for "This is an automated feedback test. Please delete me." reason
     And I press "Request Resources"

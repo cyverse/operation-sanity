@@ -60,6 +60,21 @@ def i_press_report(context, span):
     assert element, u'Element not found'
     element.first.click()
 
+@step(u'I should see and press "{name}" within {timeout:d} seconds')
+@persona_vars
+def should_see_within_timeout(context, name, timeout):
+    assert context.browser.is_text_present(name, wait_time=timeout), u'Text not found'
+    element = context.browser.find_by_xpath(
+        ("//*[@id='%(name)s']|"
+         "//*[@name='%(name)s']|"
+         "//button[contains(string(), '%(name)s')]|"
+         "//input[@type='button' and contains(string(), '%(name)s')]|"
+         "//input[@type='button' and contains(@value, '%(name)s')]|"
+         "//input[@type='submit' and contains(@value, '%(name)s')]|"
+         "//a[contains(string(), '%(name)s')]") % {'name': name})
+    assert element, u'Element not found'
+    element.first.click()
+
 """
 @step(u'I press Report')
 @persona_vars

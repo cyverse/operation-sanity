@@ -38,12 +38,7 @@ To run parallel:
 - how to launch into specific scenario within a big feature?
 - make launch instance scenario also name the instance "BDD-Instance"
 - parameterize cloud provider and project name as persona attributes
-- condense steps such as these into a single step:
-`Then I should see "Projects" within 10 seconds`  
-    `When I press "Projects"`
-    - this pattern is all over the place and could reduce the total code
-    - "I see and press "Projects"
-    - this step would use context.exec_steps
+
 
 ###Hard:
 

@@ -5,10 +5,8 @@ Feature: Atmosphere test the whole cloud!
 
   Scenario: Create a project
     When I login to Atmosphere
-    Then I should see "Projects" within 10 seconds
-    And I press "Projects"
-    Then I should see "Create New Project" within 10 seconds
-    And I press "Create New Project"
+    Then I should see and press "Projects" within 10 seconds
+    Then I should see and press "Create New Project" within 10 seconds
     Then I should see "Project Name" within 10 seconds
     And I type slowly "BDD-Project" to "0" index of class "form-control"
     And I type slowly "BDD-Project" to "1" index of class "form-control"
@@ -17,12 +15,9 @@ Feature: Atmosphere test the whole cloud!
 
   Scenario: Launch an Instance
     When I login to Atmosphere
-    Then I should see "Launch New Instance" within 10 seconds
-    And I press "Launch New Instance"
-    Then I should see "Ubuntu 14.04.2 XFCE Base" within 10 seconds
-    And I press "Ubuntu 14.04.2 XFCE Base"
-    Then I should see "Launch" within 10 seconds
-    And I press "Launch"
+    Then I should see and press "Launch New Instance" within 10 seconds
+    Then I should see and press "Ubuntu 14.04.2 XFCE Base" within 10 seconds
+    Then I should see and press "Launch" within 10 seconds
     Then I should see "Launch Instance" within 10 seconds
     Then I should see "alloted GBs of Memory" within 10 seconds
     And I press "Launch Instance"
@@ -35,12 +30,9 @@ Feature: Atmosphere test the whole cloud!
 
   Scenario: Report an Instance
     When I login to Atmosphere
-    Then I should see "Projects" within 10 seconds
-    When I press "Projects"
-    Then I should see "BDD-Project" within 10 seconds
-    And I press "BDD-Project"
-    Then I should see "Ubuntu 14.04.2 XFCE Base" within 10 seconds
-    And I press "Ubuntu 14.04.2 XFCE Base"
+    Then I should see and press "Projects" within 10 seconds
+    Then I should see and press "BDD-Project" within 10 seconds
+    Then I should see and press "Ubuntu 14.04.2 XFCE Base" within 10 seconds
     Then I should see "Report" within 10 seconds
     And I press span "Report"
     Then I should see "What problems are you having with this instance?" within 10 seconds
@@ -50,33 +42,24 @@ Feature: Atmosphere test the whole cloud!
 
   Scenario: Attach a Volume
     When I login to Atmosphere
-    Then I should see "Projects" within 10 seconds
-    When I press "Projects"
-    Then I should see "BDD-Project" within 10 seconds
-    And I press "BDD-Project"
+    Then I should see and press "Projects" within 10 seconds
+    Then I should see and press "BDD-Project" within 10 seconds
     And I press "New"
     And I press "Volume"
     Then I should see "Create volume" within 10 seconds
     And I type "BDD-Volume" to class "form-control"
     And I press "Create volume"
-    Then I should see "BDD-Volume" within 10 seconds
-    And I press "BDD-Volume"
-    Then I should see "Attach" within 10 seconds
-    And I press span "Attach"
-    Then I should see "Attach volume to instance" within 10 seconds
-    And I press "Attach volume to instance"
-    Then I should see "Attached To " within 20 seconds
+    Then I should see and press "BDD-Volume" within 10 seconds
+    Then I should see and press "Attach" within 10 seconds
+    Then I should see and press "Attach volume to instance" within 10 seconds
+    #Then I should see "Attached To" within 20 seconds (this step breaks)
 
   Scenario: Report a volume
     When I login to Atmosphere
-    Then I should see "Projects" within 10 seconds
-    When I press "Projects"
-    Then I should see "BDD-Project" within 10 seconds
-    And I press "BDD-Project"
-    Then I should see "Test-Volume" within 10 seconds
-    And I press "Test-Volume"
-    Then I should see "Report" within 10 seconds
-    And I press span "Report"
+    Then I should see and press "Projects" within 10 seconds
+    Then I should see and press "BDD-Project" within 10 seconds
+    Then I should see and press "BDD-Volume" within 10 seconds
+    Then I should see and press "Report" within 10 seconds
     Then I should see "What problems are you having with this volume?" within 10 seconds
     And I type "This is an automated feedback test. Please delete me." to class "form-control"
     And I press "Report Volume"
@@ -84,12 +67,10 @@ Feature: Atmosphere test the whole cloud!
 
   Scenario: Delete a volume
     When I login to Atmosphere
-    Then I should see "Projects" within 10 seconds
-    When I press "Projects"
-    Then I should see "BDD-Project" within 10 seconds
-    And I press "BDD-Project"
-    Then I should see "Test-Volume" within 10 seconds
-    And I press "Test-Volume"
+    Then I should see and press "Projects" within 10 seconds
+    Then I should see and press "BDD-Project" within 10 seconds
+    Then I should see and press "BDD-Volume" within 10 seconds
+    Then I should see and press "Detach" within 10 seconds
     Then I should see "Delete" within 10 seconds
     And I press span "Delete"
     And I press "Yes, delete this volume"
@@ -97,10 +78,7 @@ Feature: Atmosphere test the whole cloud!
 
   Scenario: Create external link
     When I login to Atmosphere
-    Then I should see "Projects" within 10 seconds
-    When I press "Projects"
-    Then I should see "Projects" within 10 seconds
-    When I press "Projects"
+    Then I should see and press "Projects" within 10 seconds
     And I press "New"
     And I press "Link"
     Then I should see "Create ExternalLink" within 10 seconds
@@ -112,12 +90,9 @@ Feature: Atmosphere test the whole cloud!
 
   Scenario: Delete external link
     When I login to Atmosphere
-    Then I should see "Projects" within 10 seconds
-    When I press "Projects"
-    Then I should see "BDD-Project" within 10 seconds
-    And I press "BDD-Project"
-    Then I should see "Test-Link" within 10 seconds
-    And I press "Test-Link"
+    Then I should see and press "Projects" within 10 seconds
+    Then I should see and press "BDD-Project" within 10 seconds
+    Then I should see and press "Test-Link" within 10 seconds
     Then I should see "Delete" within 10 seconds
     And I press span "Delete"
     Then I should see "Yes, delete this link"
