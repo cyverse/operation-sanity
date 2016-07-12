@@ -26,7 +26,7 @@ To run normally:
 `behave cloud.feature`
 
 To run parallel:  
-`time behave --processes 4 --parallel-element scenario`
+`time behave --processes 4 --parallel-element feature`
 
 To run a single scenario:  
 `behave -n "Attach a volume"`
