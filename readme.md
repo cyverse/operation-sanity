@@ -28,6 +28,10 @@ To run normally:
 To run parallel:  
 `time behave --processes 4 --parallel-element scenario`
 
+To run a single scenario:
+`behave -n "Attach a volume"`
+
+
 ##To do:
 
 ###Easy: 
@@ -35,9 +39,9 @@ To run parallel:
 	- probably have to add to requirements.txt
 	- this is maybe hard
 	- maybe make the browser choice a persona attribute
-- how to launch into specific scenario within a big feature?
 - make launch instance scenario also name the instance "BDD-Instance"
 - parameterize cloud provider and project name as persona attributes
+- Test airport ui
 
 
 ###Hard:

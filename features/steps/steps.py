@@ -27,7 +27,7 @@ def i_type_to_class(context, klass, value):
 
 @step(u'I type slowly "{value}" to "{index}" index of class "{klass}"')
 @persona_vars
-def i_type_to_class(context, klass, value, index):
+def i_type_to_index_of_class(context, klass, value, index):
     name = "temp_form_name" + str(index)
     assert context.browser.evaluate_script("document.getElementsByClassName('%s')[%s].name = '%s'" % (klass, index, name)), \
         u'Element not found or could not set name'
@@ -55,14 +55,28 @@ def i_request_resources(context, resources, reason):
 
 @step(u'I press span "{span}"')
 @persona_vars
-def i_press_report(context, span):
+def i_press_span(context, span):
     element = context.browser.find_by_xpath( "//*[@class='section-link']//span[contains(string(), '%s')]" % (span))
+    assert element, u'Element not found'
+    element.first.click()
+
+@step(u'I press Options span')
+@persona_vars
+def i_press_options(context):
+    element = context.browser.find_by_xpath( "//*//span[contains(string(), 'Options')]")
+    assert element, u'Element not found'
+    element.first.click()
+
+@step(u'I press Delete span')
+@persona_vars
+def i_press_delete(context):
+    element = context.browser.find_by_xpath( "//*[@class='section-link danger']")
     assert element, u'Element not found'
     element.first.click()
 
 @step(u'I should see and press "{name}" within {timeout:d} seconds')
 @persona_vars
-def should_see_within_timeout(context, name, timeout):
+def should_see_and_press_within_timeout(context, name, timeout):
     assert context.browser.is_text_present(name, wait_time=timeout), u'Text not found'
     element = context.browser.find_by_xpath(
         ("//*[@id='%(name)s']|"
@@ -74,39 +88,3 @@ def should_see_within_timeout(context, name, timeout):
          "//a[contains(string(), '%(name)s')]") % {'name': name})
     assert element, u'Element not found'
     element.first.click()
-
-"""
-@step(u'I press Report')
-@persona_vars
-def i_press_report(context):
-    element = context.browser.find_by_xpath( "//*[@class='section-link']//span[contains(string(), 'Report')]")
-    assert element, u'Element not found'
-    element.first.click()
-
-@step(u'I press Attach')
-@persona_vars
-def i_press_attach(context):
-    element = context.browser.find_by_xpath( "//*[@class='section-link']//span[contains(string(), 'Attach')]")
-    assert element, u'Element not found'
-    element.first.click()
-
-@step(u'I press Resume')
-@persona_vars
-def i_press_report(context):
-    element = context.browser.find_by_xpath( "//*[@class='section-link']//span[contains(string(), 'Resume')]")
-    assert element, u'Element not found'
-    element.first.click()
-
-@step(u'I press Delete')
-@persona_vars
-def i_press_report(context):
-    element = context.browser.find_by_xpath( "//*[@class='section-link']//span[contains(string(), 'Delete')]")
-    assert element, u'Element not found'
-    element.first.click()
-
-
-@step(u'I should see an element with class "{klass}"')
-def i_see_element_with_class(context):
-    assert context.browser.evaluate_script("document.getElementsByClassName('%s').length > 0" % (klass)), \
-        u'Element not found'
-"""
