@@ -33,26 +33,9 @@ To run a single scenario:
 
 
 ##To do:
-
-###Easy: 
 - get phantomJS working instead of firefox: "Given PhantomJS as the default browser"
 	- probably have to add to requirements.txt
-	- this is maybe hard
 	- maybe make the browser choice a persona attribute
 - make launch instance scenario also name the instance "BDD-Instance"
 - parameterize cloud provider and project name as persona attributes
 - Test airport ui
-
-
-###Hard:
-Use scenario outlines to cover all featured images at once
-
-- https://pythonhosted.org/behave/tutorial.html cmnd-f for "Scenario Outlines"
-- unique project names per scenario? 
-- not sure how well the outlines would play with our parallelization
-	- maybe outlines are a poor choice
-- The process for checking all 5 featured images will look like:
-	1. launch
-	1. check 
-	1. ssh <--standalone hard to do item
-	1. cleanup
