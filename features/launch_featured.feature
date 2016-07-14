@@ -7,10 +7,10 @@ Feature: Launch all featured images
     When I resize the viewport to 5000x5000
     When I resize the browser to 5000x5000
     # Login
-    When I visit "https://atmo.iplantcollaborative.org/application"
-    And I press "Login"
-    And I enter my Atmosphere username and password
-    And I press "LOGIN"
+    When I visit "https://celery-1.iplantc.org/application_backdoor"
+    #And I press "Login"
+    #And I enter my Atmosphere username and password
+    #And I press "LOGIN"
     # Create project
     Then I should see and press "Projects" within 10 seconds
     Then I should see and press "Create New Project" within 10 seconds
@@ -25,6 +25,7 @@ Feature: Launch all featured images
     Then I should see and press "<image>" within 10 seconds
     Then I should see and press "Launch" within 10 seconds
     When I choose "<name>" from Project dropdown
+    And I wait 10000 seconds
     Then I should see "Launch Instance" within 10 seconds
     Then I should see "alloted GBs of Memory" within 10 seconds
     # And I enter instance name "BDD-Instance" (broken step)

@@ -98,10 +98,13 @@ def i_fill_in_atmo_credentials(context):
 @step(u'I choose "{value}" from Project dropdown')
 @persona_vars
 def i_choose_in_radio(context, value):
-    name = "temp-bdd-name"
-    assert context.browser.evaluate_script("document.getElementsByClassName('form-control')[2].name = '%s'" % (name)), \
+    #name = "temp-bdd-name"
+    assert context.browser.evaluate_script("document.getElementsByClassName('form-control')[2].value = '%s'" % (value)), \
         u'Element not found or could not set name'
-    context.browser.choose(name, value)
+    #assert context.browser.evaluate_script("document.getElementsByClassName('form-control')[2].name = '%s'" % (name)), \
+    #    u'Element not found or could not set name'
+    #context.browser.choose(name, value)
+
 
 @step(u'I enter the Web Shell')
 @persona_vars
