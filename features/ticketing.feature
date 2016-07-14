@@ -1,4 +1,4 @@
-# This features provides as much standalone ticketing as possible:
+# This feature provides as much standalone ticketing as possible:
 # * Request more resources
 # * Atmosphere feedback
 #

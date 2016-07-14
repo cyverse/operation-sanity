@@ -1,4 +1,4 @@
-# This features provides a baseline test for most of the Atmosphere functionality, including:
+# This feature provides a baseline test for most of the Atmosphere functionality, including:
 # * Creating and deleting a project
 # * Creating, reporting, and deleting an instance
 # * Creating, reporting, and deleting a volume

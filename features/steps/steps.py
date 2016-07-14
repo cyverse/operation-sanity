@@ -88,3 +88,35 @@ def should_see_and_press_within_timeout(context, name, timeout):
          "//a[contains(string(), '%(name)s')]") % {'name': name})
     assert element, u'Element not found'
     element.first.click()
+
+@step(u'I enter my Atmosphere username and password')
+@persona_vars
+def i_fill_in_atmo_credentials(context):
+        context.browser.fill("username", os.environ.get('SANITYUSER'))
+        context.browser.fill("password", os.environ.get('SANITYPASS'))
+
+@step(u'I choose "{value}" from Project dropdown')
+@persona_vars
+def i_choose_in_radio(context, value):
+    name = "temp-bdd-name"
+    assert context.browser.evaluate_script("document.getElementsByClassName('form-control')[2].name = '%s'" % (name)), \
+        u'Element not found or could not set name'
+    context.browser.choose(name, value)
+
+@step(u'I enter the Web Shell')
+@persona_vars
+def i_enter_web_shell(context):
+    name = "Open Web Shell"
+    assert context.browser.evaluate_script("document.getElementsByTagName('a')[25].target = '_self'"), \
+        u'Element not found or could not set name'
+    element = context.browser.find_by_xpath("//a[contains(string(), 'Open Web Shell')]")
+    assert element, u'Element not found'
+    element.first.click()
+
+# this function is broken
+@step(u'I enter instance name "{name}"')
+@persona_vars
+def i_enter_instance_name(context, name):
+    assert context.browser.evaluate_script('document.getElementById("instanceName").innerHMTL = "%s"' % name), \
+        u'Element not found or could not set name'
+    assert True

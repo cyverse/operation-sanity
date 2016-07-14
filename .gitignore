@@ -90,10 +90,3 @@ ENV/
 
 .idea/
 .DS_Store
-features/launch.feature
-features/createproject.feature
-features/externallink.feature
-features/feedback.feature
-features/instancereport.feature
-features/needmore.feature
-features/volumereport.feature
