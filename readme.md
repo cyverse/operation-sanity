@@ -33,9 +33,13 @@ To run a single scenario:
 
 
 ##To do:
-- get phantomJS working instead of firefox: "Given PhantomJS as the default browser"
-	- probably have to add to requirements.txt
-	- maybe make the browser choice a persona attribute
+### More urgent:
+- fix `@step(u'I choose "{value}" from Project dropdown')`
+- fix `@step(u'I enter instance name "{name}"')`
+- unable to click all the featured images problem 
+- multiple logins
 - make launch instance scenario also name the instance "BDD-Instance"
 - parameterize cloud provider and project name as persona attributes
+
+### Less urgent:
 - Test airport ui
