@@ -34,12 +34,11 @@ To run a single scenario:
 
 ##To do:
 ### More urgent:
-- fix `@step(u'I choose "{value}" from Project dropdown')`
-- fix `@step(u'I enter instance name "{name}"')`
-- unable to click all the featured images problem 
-- multiple logins
-- make launch instance scenario also name the instance "BDD-Instance"
-- parameterize cloud provider and project name as persona attributes
+- unable to click all the featured images problem, need to scroll
+- parameterize cloud provider as persona attribute (hard)
+- parameterize project name as persona attribute (easy)
+- test ssh and stuff - paramiko (hard)
 
 ### Less urgent:
 - Test airport ui
+- fix `@step(u'I enter instance name "{name}"')` and use it
