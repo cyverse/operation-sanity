@@ -97,13 +97,14 @@ def i_fill_in_atmo_credentials(context):
 
 @step(u'I choose "{value}" from Project dropdown')
 @persona_vars
-def i_choose_in_radio(context, value):
-    name = "temp-bdd-name"
-    assert context.browser.evaluate_script("document.getElementsByClassName('form-control')[2].value = '%s'" % (value)), \
+def i_choose_in_dropdown(context, value):
+    name = "bdd-wow"
+    assert context.browser.evaluate_script("document.getElementsByClassName('form-control')[2].name = '%s'" % (name)), \
         u'Element not found or could not set name'
-    #assert context.browser.evaluate_script("document.getElementsByClassName('form-control')[2].name = '%s'" % (name)), \
-    #    u'Element not found or could not set name'
-    #context.browser.choose(name, value)
+    elem = context.browser.driver.find_element_by_name(name)
+    assert elem, u'Element not found'
+    select = Select(elem)
+    select.select_by_visible_text(value)
 
 
 @step(u'I enter the Web Shell')
@@ -120,6 +121,6 @@ def i_enter_web_shell(context):
 @step(u'I enter instance name "{name}"')
 @persona_vars
 def i_enter_instance_name(context, name):
-    assert context.browser.evaluate_script('document.getElementById("instanceName").innerHMTL = "%s"' % name), \
+    assert context.browser.evaluate_script('document.getElementById("instanceName").value = "%s"' % name), \
         u'Element not found or could not set name'
     assert True
