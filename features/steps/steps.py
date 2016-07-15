@@ -106,7 +106,6 @@ def i_choose_in_dropdown(context, value):
     select = Select(elem)
     select.select_by_visible_text(value)
 
-
 @step(u'I enter the Web Shell')
 @persona_vars
 def i_enter_web_shell(context):
@@ -117,7 +116,7 @@ def i_enter_web_shell(context):
     assert element, u'Element not found'
     element.first.click()
 
-# this function is broken
+# broken
 @step(u'I enter instance name "{name}"')
 @persona_vars
 def i_enter_instance_name(context, name):
