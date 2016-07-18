@@ -27,12 +27,12 @@ This repo provides tests for:
 Additionally, you'll also need to add these lines to your ~/.bash_profile:  
 `export SANITYUSER=myAtmoUsername`  
 `export SANITYPASS=myAtmoPassword`
+`export SANITYPROVIDER=myAtmoProvider`  
+where myAtmoProvider is one of:
+"iPlant Workshop Cloud - Tucson​", "iPlant Cloud - Tucson​", "iPlant Cloud - Austin"
 
 Then source it:  
 `source ~/.bash_profile`
-
-If testing an Atmosphere installation other than https://atmo.iplantcollaborative.org/application, change the line   `Atmosphere="xxxx"`  
-in environment.py to the URL of your Atmosphere installation.
 
 ###Run tests:
 The test suite has been configured to be run using:  

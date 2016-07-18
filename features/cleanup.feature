@@ -7,10 +7,13 @@ Feature: Delete all featured images
 
   Scenario Outline: Delete instances and projects
     # Login
-    When I visit "$Atmosphere"
+    When I visit "https://atmo.iplantcollaborative.org/application"
     And I press "Login"
     And I enter my Atmosphere username and password
     And I press "LOGIN"
+    
+    Then I should see "x" within 10 seconds
+    And I press the element with xpath "//*[@class='toast-message']"
     # Delete instance
     Then I should see and press "Projects" within 10 seconds
     Then I should see and press "<name>" within 10 seconds

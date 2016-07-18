@@ -6,15 +6,15 @@ if [ "$1" == "" ]; then
     exit
 fi
 
-echo "                            _   _               "
+echo "                              _                 "
 echo "                             | | (_)            " 
 echo "    ___  ____   ___ ____ ____| |_ _  ___  ____  "
 echo "   / _ \|  _ \ / _ \  __/ _  | __| |/ _ \|  _ \ "
 echo "  | (_) | |_) |  __/ | | (_| | |_| | (_) | | | |"
-echo "   \___/| .__/ \___|_|  \__,_|\__|_|\___/|_| |_|"
+echo "   \___/|  __/ \___|_|  \__,_|\__|_|\___/|_| |_|"
 echo "        | |                                     "
 echo "        |_|                                     "
-echo "                             _ _                "
+echo "                               _                "
 echo "                            (_) |               "
 echo "             ___  ____ ____  _| |_ _   _        "
 echo "            / __|/ _  |  _ \| | __| | | |       "
@@ -29,7 +29,7 @@ time behave --processes $PROCESSES --parallel-element scenario features/launch.f
 echo "done"
 
 echo "waiting 30 minutes for deployment to complete"
-sleep 1600
+sleep 1800
 
 echo "testing basic functionality"
 behave  features/test.feature

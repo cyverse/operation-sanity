@@ -97,7 +97,7 @@ def i_fill_in_atmo_credentials(context):
 
 @step(u'I choose "{value}" from Project dropdown')
 @persona_vars
-def i_choose_in_dropdown(context, value):
+def i_choose_in_project_dropdown(context, value):
     name = "bdd-wow"
     assert context.browser.evaluate_script("document.getElementsByClassName('form-control')[2].name = '%s'" % (name)), \
         u'Element not found or could not set name'
@@ -105,6 +105,17 @@ def i_choose_in_dropdown(context, value):
     assert elem, u'Element not found'
     select = Select(elem)
     select.select_by_visible_text(value)
+
+@step(u'I choose a provider from Provider dropdown')
+@persona_vars
+def i_choose_in_provider_dropdown(context):
+    name = "bdd-wow"
+    assert context.browser.evaluate_script("document.getElementsByClassName('form-control')[3].name = '%s'" % (name)), \
+        u'Element not found or could not set name'
+    elem = context.browser.driver.find_element_by_name(name)
+    assert elem, u'Element not found'
+    select = Select(elem)
+    select.select_by_visible_text(os.environ.get('SANITYPROVIDER'))    
 
 @step(u'I enter the Web Shell')
 @persona_vars

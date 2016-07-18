@@ -17,6 +17,9 @@ Feature: Test web shells of featured images
     And I fill in "username" with "$username"
     And I fill in "password" with "$password"
     And I press "LOGIN"
+
+    Then I should see "x" within 10 seconds
+    And I press the element with xpath "//*[@class='toast-message']"
     Then I should see and press "Projects" within 10 seconds
     Then I should see and press "project-one" within 10 seconds
     Then I should see and press "Ubuntu 14.04.2 XFCE Base" within 10 seconds
@@ -33,6 +36,9 @@ Feature: Test web shells of featured images
     And I fill in "username" with "$username"
     And I fill in "password" with "$password"
     And I press "LOGIN"
+
+    Then I should see "x" within 10 seconds
+    And I press the element with xpath "//*[@class='toast-message']"
     Then I should see and press "Projects" within 10 seconds
     Then I should see and press "project-one" within 10 seconds
     And I press "New"
@@ -52,6 +58,9 @@ Feature: Test web shells of featured images
     And I fill in "username" with "$username"
     And I fill in "password" with "$password"
     And I press "LOGIN"
+
+    Then I should see "x" within 10 seconds
+    And I press the element with xpath "//*[@class='toast-message']"
     Then I should see and press "Projects" within 10 seconds
     Then I should see and press "project-one" within 10 seconds
     Then I should see and press "BDD-Volume" within 10 seconds
@@ -68,6 +77,9 @@ Feature: Test web shells of featured images
     And I fill in "username" with "$username"
     And I fill in "password" with "$password"
     And I press "LOGIN"
+
+    Then I should see "x" within 10 seconds
+    And I press the element with xpath "//*[@class='toast-message']"
     Then I should see and press "Projects" within 10 seconds
     Then I should see and press "project-one" within 10 seconds
     Then I should see and press "BDD-Volume" within 10 seconds
@@ -87,6 +99,9 @@ Feature: Test web shells of featured images
     And I fill in "username" with "$username"
     And I fill in "password" with "$password"
     And I press "LOGIN"
+
+    Then I should see "x" within 10 seconds
+    And I press the element with xpath "//*[@class='toast-message']"
     Then I should see and press "Projects" within 10 seconds
     Then I should see and press "project-one" within 10 seconds
     And I press "New"
@@ -104,6 +119,9 @@ Feature: Test web shells of featured images
     And I fill in "username" with "$username"
     And I fill in "password" with "$password"
     And I press "LOGIN"
+
+    Then I should see "x" within 10 seconds
+    And I press the element with xpath "//*[@class='toast-message']"
     Then I should see and press "Projects" within 10 seconds
     Then I should see and press "project-one" within 10 seconds
     Then I should see and press "Test-Link" within 10 seconds
@@ -118,6 +136,9 @@ Feature: Test web shells of featured images
     And I fill in "username" with "$username"
     And I fill in "password" with "$password"
     And I press "LOGIN"
+
+    Then I should see "x" within 10 seconds
+    And I press the element with xpath "//*[@class='toast-message']"
     Then I should see and press "Need more?" within 30 seconds
     Then I should see "Request Resources" within 30 seconds
     And I ask for "0 AU" resources for "This is an automated feedback test. Please delete me." reason
@@ -130,6 +151,9 @@ Feature: Test web shells of featured images
     And I fill in "username" with "$username"
     And I fill in "password" with "$password"
     And I press "LOGIN"
+    
+    Then I should see "x" within 10 seconds
+    And I press the element with xpath "//*[@class='toast-message']"
     And I should see and press "Feedback" within 30 seconds
     Then I should see "Are you experiencing a problem" within 10 seconds
     And I type "This is an automated feedback test. Please delete me." to class "form-control"
