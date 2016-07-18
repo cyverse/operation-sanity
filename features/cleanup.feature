@@ -1,3 +1,5 @@
+# This feature deletes the images and project created by launch_featured.feature
+
 Feature: Delete all featured images
 
   Background:

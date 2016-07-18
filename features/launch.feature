@@ -1,3 +1,5 @@
+# This feature launches 4/5 of the featured images on Atmosphere and ensures they get to the networking step
+
 Feature: Launch all featured images
 
   Background:
