@@ -5,11 +5,11 @@ Feature: Launch all featured images
   Background:
     Given a browser
 
-  Scenario Outline: Launch all featured images instance
+  Scenario Outline: Launch all featured images
     When I resize the viewport to 5000x5000
     When I resize the browser to 5000x5000
     # Login
-    When I visit "https://atmo.iplantcollaborative.org/application"
+    When I visit "$Atmosphere"
     And I press "Login"
     And I enter my Atmosphere username and password
     And I press "LOGIN"

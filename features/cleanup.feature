@@ -7,7 +7,7 @@ Feature: Delete all featured images
 
   Scenario Outline: Delete instances and projects
     # Login
-    When I visit "https://atmo.iplantcollaborative.org/application"
+    When I visit "$Atmosphere"
     And I press "Login"
     And I enter my Atmosphere username and password
     And I press "LOGIN"

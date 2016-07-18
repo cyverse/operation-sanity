@@ -2,6 +2,16 @@
 
 Operation Sanity is a set of behavior driven development tests for <a href="https://github.com/iPlantCollaborativeOpenSource/atmosphere">Atmosphere</a> implemented using <a href="https://github.com/behave/behave">Behave</a>, <a href="https://github.com/ggozad/behaving">Behaving</a>, and <a href="https://github.com/vishalm/behave-parallel">Behave-parallel</a>.
 
+This repo provides tests for:
+
+* Creating and deleting projects
+* Launching, reporting, and deleting featured images
+* Creating, reporting, and deleting a volume
+* Creating and deleting an external link
+* Ensuring web shell operation 
+* Requesting more resources
+* Submitting Atmosphere feedback
+
 ##How to run:
 
 ###Installation: 
@@ -21,23 +31,34 @@ Additionally, you'll also need to add these lines to your ~/.bash_profile:
 Then source it:  
 `source ~/.bash_profile`
 
-###Run tests:
-To run normally:  
-`behave cloud.feature`
+If testing an Atmosphere installation other than https://atmo.iplantcollaborative.org/application, change the line   `Atmosphere="xxxx"`  
+in environment.py to the URL of your Atmosphere installation.
 
-To run parallel:  
-`time behave --processes 4 --parallel-element feature`
+###Run tests:
+The test suite has been configured to be run using:  
+`bash run.bash 2`  
+where 2 is the max number of processes you want run.
+
+###For reference:
+To run a single feature:  
+`behave launch.feature`
+
+To run multiple scenarios in parallel:  
+`time behave --processes 4 --parallel-element scenario`
 
 To run a single scenario:  
 `behave -n "Attach a volume"`
 
+To run a single scenario within an outline:
+`behave features/launch.feature:38`  
+where 38 is the line number.
 
 ##To do:
 ### More urgent:
 - unable to click all the featured images problem, need to scroll
 - parameterize cloud provider as persona attribute (hard)
 - parameterize project name as persona attribute (easy)
-- test ssh and stuff - paramiko (hard)
+- test ssh and stuff in check_featured.feature - paramiko (hard)
 
 ### Less urgent:
 - Test airport ui
