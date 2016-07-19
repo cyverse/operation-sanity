@@ -6,17 +6,17 @@ This repo provides tests for:
 
 * Creating and deleting projects
 * Launching, reporting, and deleting featured images
-* Creating, reporting, and deleting a volume
-* Creating and deleting an external link
-* Ensuring web shell operation 
-* Requesting more resources
+* Creating, reporting, and deleting volumes
+* Creating and deleting external links
+* Testing web shell operation 
+* Submitting resource request ticket
 * Submitting Atmosphere feedback
 
 ##How to run:
 
 ###Installation: 
 1. Ensure you have firefox 46 installed
-1. Clone this repo 
+1. Clone this repo
 1. Go to root of the project
 1. Create a virtual env 
 

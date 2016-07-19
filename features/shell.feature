@@ -9,10 +9,6 @@ Feature: Test web shells of featured images
     And I press "Login"
     And I enter my Atmosphere username and password
     And I press "LOGIN"
-
-    #Then I should see "x" within 10 seconds
-    #And I press the element with xpath "//*[@class='toast-message']"
-    
     # Check web shell
     Then I should see and press "Projects" within 30 seconds
     Then I should see and press "<name>" within 30 seconds

@@ -14,11 +14,6 @@ Feature: Launch all featured images
     And I enter my Atmosphere username and password
     And I press "LOGIN"
     # Create project
-    
-
-    #Then I should see "planned maintenance" within 10 seconds
-    #And I press the element with xpath "//*[@class='toast-message']"
-    
     Then I should see and press "Projects" within 10 seconds
     Then I should see and press "Create New Project" within 10 seconds
     Then I should see "Project Name" within 10 seconds
