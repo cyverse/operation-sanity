@@ -28,8 +28,11 @@ Additionally, you'll also need to add these lines to your ~/.bash_profile:
 `export SANITYUSER=myAtmoUsername`  
 `export SANITYPASS=myAtmoPassword`
 `export SANITYPROVIDER=myAtmoProvider`  
-where myAtmoProvider is one of:
-"iPlant Workshop Cloud - Tucson​", "iPlant Cloud - Tucson​", "iPlant Cloud - Austin"
+  
+Where myAtmoProvider is one of:  
+`iPlant Workshop Cloud - Tucson​`  
+`iPlant Cloud - Tucson​`  
+`iPlant Cloud - Austin`
 
 Then source it:  
 `source ~/.bash_profile`
@@ -56,7 +59,6 @@ where 38 is the line number.
 ##To do:
 ### More urgent:
 - unable to click all the featured images problem, need to scroll
-- parameterize cloud provider as persona attribute (hard)
 - parameterize project name as persona attribute (easy)
 - test ssh and stuff in check_featured.feature - paramiko (hard)
 
