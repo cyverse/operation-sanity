@@ -1,5 +1,4 @@
 #!/bin/bash 
-PROCESSES=$1
 
 if [ "$1" == "" ]; then
 	echo "Usage: bash run.bash 2, where 2 is the max number of processes"
@@ -23,6 +22,7 @@ echo "            |___/\__,_|_| |_|_|\__|\__, |       "
 echo "                                    __/ |       "
 echo "                                   |___/        "
 
+PROCESSES=$1
 
 echo "launching featured images"
 time behave --processes $PROCESSES --parallel-element scenario features/launch.feature

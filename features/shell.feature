@@ -22,4 +22,4 @@ Feature: Test web shells of featured images
     | Ubuntu 14.04 with Docker 1.7.x | project-two   |
     | Ubuntu 14.04.3 NoGUI Base      | project-three |
     | functional genomics_v1.0       | project-four  |
-    #| iPlant Centos 6.5 NoGUI Base3  | project-five  | broken due to scrolling
+    | iPlant Centos 6.5 NoGUI Base3  | project-five  |

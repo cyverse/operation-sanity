@@ -5,7 +5,7 @@ from behaving.notifications.gcm.steps import *
 from behaving.personas.steps import *
 from behaving.personas.persona import persona_vars
 
-@when(u'I login to Atmosphere')
+@step(u'I login to Atmosphere')
 @persona_vars
 def i_login_to_atmo(context):
     context.execute_steps(u'''
@@ -15,6 +15,21 @@ def i_login_to_atmo(context):
         And I fill in "password" with "$password"
         And I press "LOGIN"
     ''')
+
+@step(u'I create project "{project}" if necessary')
+@persona_vars
+def i_create_project(context, project):
+    if not context.browser.is_element_present_by_xpath("//*[contains(string(), %s)]" % project):
+    #if not context.browser.is_element_present_by_css("[href*='%s']" % project):
+        context.execute_steps(u'''
+            Then I should see and press "Projects" within 10 seconds
+            Then I should see and press "Create New Project" within 10 seconds
+            Then I should see "Project Name" within 10 seconds
+            And I type slowly "%s" to "0" index of class "form-control"
+            And I type slowly "%s" to "1" index of class "form-control"
+            And I press "submitCreateProject"
+            Then I should see "%s" within 10 seconds
+        ''' % (project, project, project))
 
 @step(u'I type "{value}" to class "{klass}"')
 @persona_vars
@@ -123,14 +138,22 @@ def i_enter_web_shell(context):
     name = "Open Web Shell"
     assert context.browser.evaluate_script("document.getElementsByTagName('a')[25].target = '_self'"), \
         u'Element not found or could not set name'
-    element = context.browser.find_by_xpath("//a[contains(string(), 'Open Web Shell')]")
+    element = context.browser.find_by_xpath("//*a[contains(string(), 'Open Web Shell')]")
     assert element, u'Element not found'
     element.first.click()
+
+@step(u'I scroll down "{pixels}" pixels')
+def i_scroll_to_element(context, pixels):
+    #while not context.browser.is_element_present_by_xpath("(//a[contains(string(), %s)])[1]" % ID):
+    #    context.browser.evaluate_script("window.scrollBy(0, 100)")
+
+    #while not find_visible_by_css(context, (("a[href*='%s']") % ID)):
+    #    context.browser.evaluate_script("window.scrollBy(0, 100)")
+    context.browser.evaluate_script("window.scrollBy(0, %s);" % pixels)
 
 # broken
 @step(u'I enter instance name "{name}"')
 @persona_vars
 def i_enter_instance_name(context, name):
-    assert context.browser.evaluate_script('document.getElementById("instanceName").value = "%s"' % name), \
+    assert context.browser.evaluate_script("document.getElementById('instanceName').value = '%s'" % name), \
         u'Element not found or could not set name'
-    assert True

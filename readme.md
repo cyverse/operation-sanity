@@ -58,7 +58,9 @@ where 38 is the line number.
 
 ##To do:
 ### More urgent:
-- unable to click all the featured images problem, need to scroll
+- automagically launch instances on all providers
+- check if all instances are active
+- better scrolling solution
 - parameterize project name as persona attribute (easy)
 - test ssh and stuff in check_featured.feature - paramiko (hard)
 
