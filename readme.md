@@ -5,7 +5,9 @@ Operation Sanity is a set of behavior driven development tests for <a href="http
 This repo provides tests for:
 
 * Creating and deleting projects
-* Launching, reporting, and deleting featured images
+* Launching featured images on all providers
+* Ensuring those instances launch 
+* Reporting and deleting featured images
 * Creating, reporting, and deleting volumes
 * Creating and deleting external links
 * Testing web shell operation 
@@ -52,10 +54,7 @@ where 38 is the line number.
 
 ##To do:
 ### More urgent:
-- automagically launch instances on all providers
-- check if all instances are active
 - test ssh and stuff in check_featured.feature - paramiko (hard)
 
 ### Less urgent:
 - Test airport ui
-- fix `@step(u'I enter instance name "{name}"')` and use it

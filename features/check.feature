@@ -13,7 +13,7 @@ Feature: Test web shells of featured images
         # Check that instance is active
         Then I should see and press "Projects" within 30 seconds
         Then I should see and press "<project-name>" within 30 seconds
-        Then I should see an element with the css selector "[class='instance-status-light active']"
+        Then I wait for instance to become active
 
         # Web shell checking has been commented out because the web shell has been disabled recently
 
