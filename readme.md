@@ -27,12 +27,6 @@ This repo provides tests for:
 Additionally, you'll also need to add these lines to your ~/.bash_profile:  
 `export SANITYUSER=myAtmoUsername`  
 `export SANITYPASS=myAtmoPassword`
-`export SANITYPROVIDER=myAtmoProvider`  
-  
-Where myAtmoProvider is one of:  
-`iPlant Workshop Cloud - Tucson​`  
-`iPlant Cloud - Tucson​`  
-`iPlant Cloud - Austin`
 
 Then source it:  
 `source ~/.bash_profile`
@@ -60,8 +54,6 @@ where 38 is the line number.
 ### More urgent:
 - automagically launch instances on all providers
 - check if all instances are active
-- better scrolling solution
-- parameterize project name as persona attribute (easy)
 - test ssh and stuff in check_featured.feature - paramiko (hard)
 
 ### Less urgent:

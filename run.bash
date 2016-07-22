@@ -13,14 +13,14 @@ echo "  | (_) | |_) |  __/ | | (_| | |_| | (_) | | | |"
 echo "   \___/|  __/ \___|_|  \__,_|\__|_|\___/|_| |_|"
 echo "        | |                                     "
 echo "        |_|                                     "
-echo "                               _                "
-echo "                            (_) |               "
-echo "             ___  ____ ____  _| |_ _   _        "
-echo "            / __|/ _  |  _ \| | __| | | |       "
-echo "            \__ \ (_| | | | | | |_| |_| |       "
-echo "            |___/\__,_|_| |_|_|\__|\__, |       "
-echo "                                    __/ |       "
-echo "                                   |___/        "
+echo "                             _                  "
+echo "                          (_) |                 "
+echo "           ___  ____ ____  _| |_ _   _          "
+echo "          / __|/ _  |  _ \| | __| | | |         "
+echo "          \__ \ (_| | | | | | |_| |_| |         "
+echo "          |___/\__,_|_| |_|_|\__|\__, |         "
+echo "                                  __/ |         "
+echo "                                 |___/          "
 
 PROCESSES=$1
 
@@ -31,12 +31,11 @@ echo "done"
 echo "waiting 30 minutes for deployment to complete"
 sleep 1800
 
+echo "checking if all instances are active"
+time behave --processes $PROCESSES --parallel-element scenario features/check.feature
+
 echo "testing basic functionality"
 behave  features/test.feature
-echo "done"
-
-echo "testing web shell"
-time behave --processes $PROCESSES --parallel-element scenario features/shell.feature
 echo "done"
 
 echo "cleaning up"

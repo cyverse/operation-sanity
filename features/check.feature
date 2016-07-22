@@ -1,38 +1,26 @@
-# This feature launches all of the featured images on all of the providers of Atmosphere and ensures they get to the networking step
-# Ensuring that instances get to the networking step is necessary, otherwise a modal will continuously pop up demanding you put 
-# instances into a project, breaking all scripts.
-
-Feature: Launch all featured images
+Feature: Test web shells of featured images
 
     Background:
         Given a browser
 
-    Scenario Outline: Launch all featured images
-        When I resize the viewport to 5000x5000
-        When I resize the browser to 5000x5000
+    Scenario Outline: Check web shell
         # Login
         When I visit "https://atmo.iplantcollaborative.org/application"
         And I press "Login"
         And I enter my Atmosphere username and password
         And I press "LOGIN"
-        # Create project
-        Then I create project "<project-name>" if necessary
-        # Launch instance
-        Then I should see and press "Dashboard" within 10 seconds
-        Then I should see and press "Launch New Instance" within 10 seconds
-        Then I should see "<image>" within 30 seconds
-        Then I scroll down "<scroll>" pixels
-        Then I press "<image>"
-        When I wait for 5 seconds
-        Then I should see and press "Launch" within 10 seconds
-        Then I should see "Launch an Instance / Basic Options" within 10 seconds
-        And I should see "alloted GBs of Memory" within 10 seconds
-        And I choose provider "<provider>" from Provider dropdown
-        When I choose "<project-name>" from Project dropdown
-        And I press "Launch Instance"
-        Then I should see "Build" within 10 seconds
-        Then I should see "Spawning" within 300 seconds
-        Then I should see "Networking" within 300 seconds
+
+        # Check that instance is active
+        Then I should see and press "Projects" within 30 seconds
+        Then I should see and press "<project-name>" within 30 seconds
+        Then I should see an element with the css selector "[class='instance-status-light active']"
+
+        # Web shell checking has been commented out because the web shell has been disabled recently
+
+        # Check web shell
+        #Then I should see and press "<image>" within 30 seconds
+        #Then I enter the Web Shell
+        #Then I should see "Access is restricted to AUTHORIZED USERS only!" within 30 seconds
 
     Examples: Featured images
         | image                          | project-name | scroll | provider                       |
