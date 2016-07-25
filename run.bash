@@ -24,14 +24,14 @@ echo "                                 |___/          "
 
 PROCESSES=$1
 
-echo "launching featured images"
-time behave --processes $PROCESSES --parallel-element scenario features/launch.feature
-echo "done"
+#echo "launching featured images"
+#time behave --processes $PROCESSES --parallel-element scenario features/launch.feature
+#echo "done"
 
-echo "waiting 30 minutes for deployment to complete"
-sleep 1800
+#echo "waiting 30 minutes for deployment to complete"
+#sleep 1800
 
-echo "checking if all instances are active"
+echo "Waiting for instances to become active"
 time behave --processes $PROCESSES --parallel-element scenario features/check.feature
 
 echo "testing basic functionality"

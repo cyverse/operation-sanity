@@ -4,14 +4,16 @@ from behaving.mail.steps import *
 from behaving.notifications.gcm.steps import *
 from behaving.personas.steps import *
 from behaving.personas.persona import persona_vars
+import time
 
 @step(u'I wait for instance to become active')
-def i_type_to_class(context, klass, value):
+def i_type_to_class(context):
     if context.browser.is_element_present_by_css("[class='instance-status-light']"):
         while True:
             if context.browser.is_element_present_by_css("[class='instance-status-light active']") or context.browser.is_element_present_by_css("[class='instance-status-light inactive']"):
                 assert context.browser.is_element_present_by_css("[class='instance-status-light active']"), u'Instance failed to deploy'
                 break
+            time.sleep(15)
 
 @step(u'I type "{value}" to class "{klass}"')
 def i_type_to_class(context, klass, value):
