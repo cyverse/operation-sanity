@@ -5,11 +5,11 @@ Operation Sanity is a set of behavior driven development tests for <a href="http
 This repo provides tests for:
 
 * Creating and deleting projects
-* Launching featured images on all providers
+* Launching all 5 featured images on all 3 providers
 * Ensuring those instances launch 
 * Reporting and deleting featured images
 * Creating, reporting, and deleting volumes
-* Creating and deleting external links
+* Creating and deleting links
 * Testing web shell operation 
 * Submitting resource request ticket
 * Submitting Atmosphere feedback
@@ -17,7 +17,7 @@ This repo provides tests for:
 ##How to run:
 
 ###Installation: 
-1. Ensure you have firefox 46 installed
+1. Ensure you have firefox 46 installed (47 won't work)
 1. Clone this repo
 1. Go to root of the project
 1. Create a virtual env 
@@ -30,7 +30,7 @@ Additionally, you'll also need to add these lines to your ~/.bash_profile:
 `export SANITYUSER=myAtmoUsername`  
 `export SANITYPASS=myAtmoPassword`  
 `export SANITYURL="https://atmo.iplantcollaborative.org"`  
-Of course, the URL can be any installationg of Atmosphere.
+The URL can be any installation of Atmosphere.
 
 
 Then source it:  
@@ -38,15 +38,18 @@ Then source it:
 
 ###Run tests:
 The test suite has been configured to be run using:  
-`bash run.bash 2`  
+`time bash run.bash 2`  
 where 2 is the max number of processes you want run.
 
 ###For reference:
 To run a single feature:  
 `behave launch.feature`
 
-To run multiple scenarios in parallel:  
-`time behave --processes 4 --parallel-element scenario`
+To run multiple scenarios in parallel (good for outlines):  
+`behave --processes 4 --parallel-element scenario`
+
+To run multiple features in parallel:  
+`behave --processes 4 --parallel-element feature`
 
 To run a single scenario:  
 `behave -n "Attach a volume"`
@@ -57,7 +60,7 @@ where 38 is the line number.
 
 ##To do:
 ### More urgent:
-- test ssh and stuff in check_featured.feature - paramiko (hard)
+- test ssh and stuff in check_featured.feature using paramiko (hard)
 
 ### Less urgent:
 - Test airport ui
