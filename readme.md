@@ -28,7 +28,10 @@ This repo provides tests for:
 
 Additionally, you'll also need to add these lines to your ~/.bash_profile:  
 `export SANITYUSER=myAtmoUsername`  
-`export SANITYPASS=myAtmoPassword`
+`export SANITYPASS=myAtmoPassword`  
+`export SANITYURL="https://atmo.iplantcollaborative.org"`  
+Of course, the URL can be any installationg of Atmosphere.
+
 
 Then source it:  
 `source ~/.bash_profile`

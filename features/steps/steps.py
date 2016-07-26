@@ -7,21 +7,13 @@ from behaving.personas.persona import persona_vars
 import time
 
 @step(u'I wait for instance to become active')
-def i_type_to_class(context):
+def i_wait_for_instance(context):
     if context.browser.is_element_present_by_css("[class='instance-status-light']"):
         while True:
             if context.browser.is_element_present_by_css("[class='instance-status-light active']") or context.browser.is_element_present_by_css("[class='instance-status-light inactive']"):
                 assert context.browser.is_element_present_by_css("[class='instance-status-light active']"), u'Instance failed to deploy'
                 break
             time.sleep(15)
-
-@step(u'I type "{value}" to class "{klass}"')
-def i_type_to_class(context, klass, value):
-    name = "temp_form_name"
-    assert context.browser.evaluate_script("document.getElementsByClassName('%s')[0].name = '%s'" % (klass, name)), \
-        u'Element not found or could not set name'
-    for key in context.browser.type(name, value, slowly=True):
-        assert key
 
 @step(u'I type slowly "{value}" to "{index}" index of class "{klass}"')
 def i_type_to_index_of_class(context, klass, value, index):
@@ -68,7 +60,7 @@ def i_press_delete(context):
     element.first.click()
 
 @step(u'I should see and press "{name}" within {timeout:d} seconds')
-def should_see_and_press_within_timeout(context, name, timeout):
+def i_should_see_and_press_within_timeout(context, name, timeout):
     assert context.browser.is_text_present(name, wait_time=timeout), u'Text not found'
     element = context.browser.find_by_xpath(
         ("//*[@id='%(name)s']|"
@@ -81,10 +73,38 @@ def should_see_and_press_within_timeout(context, name, timeout):
     assert element, u'Element not found'
     element.first.click()
 
-@step(u'I enter my Atmosphere username and password')
-def i_fill_in_atmo_credentials(context):
+@step(u'I login to Atmosphere')
+def i_login_to_atmo(context):
+    # visit URL
+    context.browser.visit(os.environ.get('SANITYURL'))
+    # press login
+    assert context.browser.is_text_present('Login', wait_time=10), u'Text not found'
+    name = 'Login'
+    element = context.browser.find_by_xpath(
+        ("//*[@id='%(name)s']|"
+         "//*[@name='%(name)s']|"
+         "//button[contains(string(), '%(name)s')]|"
+         "//input[@type='button' and contains(string(), '%(name)s')]|"
+         "//input[@type='button' and contains(@value, '%(name)s')]|"
+         "//input[@type='submit' and contains(@value, '%(name)s')]|"
+         "//a[contains(string(), '%(name)s')]") % {'name': name})
+    assert element, u'Element not found'
+    element.first.click()
+    # enter info
     context.browser.fill("username", os.environ.get('SANITYUSER'))
     context.browser.fill("password", os.environ.get('SANITYPASS'))
+    # press LOGIN
+    name = "LOGIN"
+    element = context.browser.find_by_xpath(
+        ("//*[@id='%(name)s']|"
+         "//*[@name='%(name)s']|"
+         "//button[contains(string(), '%(name)s')]|"
+         "//input[@type='button' and contains(string(), '%(name)s')]|"
+         "//input[@type='button' and contains(@value, '%(name)s')]|"
+         "//input[@type='submit' and contains(@value, '%(name)s')]|"
+         "//a[contains(string(), '%(name)s')]") % {'name': name})
+    assert element, u'Element not found'
+    element.first.click()
 
 @step(u'I choose "{value}" from Project dropdown')
 def i_choose_in_project_dropdown(context, value):
@@ -118,8 +138,8 @@ def i_enter_web_shell(context):
     assert element, u'Element not found'
     element.first.click()
 
-@step(u'I scroll down "{pixels}" pixels')
-def i_scroll_to_element(context, pixels):
+@step(u'I scroll down {pixels} pixels')
+def i_scroll_down(context, pixels):
     #while not find_visible_by_css(context, (("a[href*='%s']") % ID)):
     #    context.browser.evaluate_script("window.scrollBy(0, 100)")
     context.browser.evaluate_script("window.scrollBy(0, %s);" % pixels)

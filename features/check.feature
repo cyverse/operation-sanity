@@ -5,14 +5,11 @@ Feature: Test web shells of featured images
 
     Scenario Outline: Check web shell
         # Login
-        When I visit "https://atmo.iplantcollaborative.org/application"
-        And I press "Login"
-        And I enter my Atmosphere username and password
-        And I press "LOGIN"
+        When I login to Atmosphere
 
         # Check that instance is active
         Then I should see and press "Projects" within 30 seconds
-        Then I scroll down "<scroll>" pixels
+        Then I scroll down <scroll> pixels
         Then I should see and press "<project-name>" within 30 seconds
         Then I wait for instance to become active
 

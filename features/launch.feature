@@ -8,13 +8,9 @@ Feature: Launch all featured images
         Given a browser
 
     Scenario Outline: Launch all featured images
-        When I resize the viewport to 5000x5000
         When I resize the browser to 5000x5000
         # Login
-        When I visit "https://atmo.iplantcollaborative.org/application"
-        And I press "Login"
-        And I enter my Atmosphere username and password
-        And I press "LOGIN"
+        When I login to Atmosphere
         # Create project
         Then I create project "<project-name>" if necessary
         # Launch instance
@@ -30,7 +26,7 @@ Feature: Launch all featured images
         And I choose provider "<provider>" from Provider dropdown
         When I choose "<project-name>" from Project dropdown
         And I press "Launch Instance"
-        Then I should see "Build" within 10 seconds
+        #Then I should see "Build" within 60 seconds
         Then I should see "Spawning" within 300 seconds
         Then I should see "Networking" within 300 seconds
 

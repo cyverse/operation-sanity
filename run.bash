@@ -1,7 +1,7 @@
 #!/bin/bash 
 
 if [ "$1" == "" ]; then
-	echo "Usage: bash run.bash 2, where 2 is the max number of processes"
+	echo "Usage: 'bash run.bash 2', where 2 is the max number of processes"
     exit
 fi
 
@@ -24,20 +24,14 @@ echo "                                 |___/          "
 
 PROCESSES=$1
 
-#echo "launching featured images"
-#time behave --processes $PROCESSES --parallel-element scenario features/launch.feature
-#echo "done"
+echo -e "\n********| Launching featured images |********"
+behave --processes $PROCESSES --parallel-element scenario features/launch.feature
 
-#echo "waiting 30 minutes for deployment to complete"
-#sleep 1800
+echo -e "\n********| Ensuring instances become active |********"
+behave --processes $PROCESSES --parallel-element scenario features/check.feature
 
-echo "Waiting for instances to become active"
-time behave --processes $PROCESSES --parallel-element scenario features/check.feature
-
-echo "testing basic functionality"
+echo -e "\n********| Testing volumes, links, and ticketing |********"
 behave  features/test.feature
-echo "done"
 
-echo "cleaning up"
-time behave --processes $PROCESSES --parallel-element scenario features/cleanup.feature
-echo "done"
+echo -e "\n********| Cleaning up |********"
+behave --processes $PROCESSES --parallel-element scenario features/cleanup.feature
