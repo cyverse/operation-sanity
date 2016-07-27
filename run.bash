@@ -5,7 +5,7 @@ if [ "$1" == "" ]; then
     exit
 fi
 
-echo "****************************************************"
+echo -e "\n****************************************************"
 echo "*                              _                   *"
 echo "*                             | | (_)              *" 
 echo "*    ___  ____   ___ ____ ____| |_ _  ___  ____    *"
@@ -24,7 +24,8 @@ echo "*                                  __/ |           *"
 echo "*                                 |___/            *"
 echo "****************************************************"
 echo -e "\nPlease note that running this script with more processes can significantly improve test time."
-echo -e "The script takes approximately 50 minutes with two processes.\n"
+echo -e "The script takes approximately an hour with two processes."
+echo -e "Additionally, the script runs best when you have no instances and projects on your Atmosphere account!\n"
 
 # sets PROCESSES to first argument
 PROCESSES=$1
@@ -32,30 +33,29 @@ PROCESSES=$1
 # STEP 1: LAUNCH INSTANCES
 echo -e "********************************************"
 echo -e "********| STEP 1: LAUNCH INSTANCES |********"
-echo -e "********************************************\n"
-echo -e "Failures here can be false negatives. Investigate failed scenarios to see if the instances launched.\n"
-echo -e "'p' indicates pass and 'f' indicates fail."
+echo -e "********************************************"
+echo -e "'p' indicates pass and 'f' indicates fail.\n"
 behave --processes $PROCESSES --parallel-element scenario features/launch.feature
 
 # STEP 2: ENSURE INSTANCES ARE ACTIVE
-echo -e "*********************************************************"
+echo -e "\n*********************************************************"
 echo -e "********| # STEP 2: ENSURE INSTANCES ARE ACTIVE |********"
-echo -e "*********************************************************\n"
-echo -e "Failures here can indicate deployment errors. Investigate any failed tests.\n"
-echo -e "'p' indicates pass and 'f' indicates fail."
+echo -e "*********************************************************"
+echo -e "Failures here can indicate deployment errors."
+echo -e "'p' indicates pass and 'f' indicates fail.\n"
 behave --processes $PROCESSES --parallel-element scenario features/check.feature
 
 # STEP 3: TEST VOLUMES, LINKS, TICKETS
-echo -e "*********************************************************"
+echo -e "\n*********************************************************"
 echo -e "********| STEP 3: TEST VOLUMES, LINKS, TICKETS |*********"
-echo -e "*********************************************************\n"
-echo -e "Any red text here can be interpreted as failure. Investigate the issue to ensure everything is working.\n"
+echo -e "*********************************************************"
+echo -e "Any red text here can be interpreted as failure.\n"
 behave  features/test.feature
 
 # STEP 4: CLEAN UP
-echo -e "************************************"
+echo -e "\n************************************"
 echo -e "********| STEP 4: CLEAN UP |********"
-echo -e "************************************\n"
-echo -e "Manual cleanup is usually necessary in addition to this command\n"
-echo -e "'p' indicates pass and 'f' indicates fail."
+echo -e "************************************"
+echo -e "Manual cleanup is usually necessary in addition to this command"
+echo -e "'p' indicates pass and 'f' indicates fail.\n"
 behave --processes $PROCESSES --parallel-element scenario features/cleanup.feature

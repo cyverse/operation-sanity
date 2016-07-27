@@ -16,8 +16,8 @@ Feature: Delete all featured images
         Then I press Delete span
         Then I should see and press "Yes, delete this instance" within 10 seconds
         Then I should see "Deleting" within 10 seconds
+        Then I should see "You have not added any instances to this project." within 100 seconds
         # Delete project
-        When I wait for 80 seconds
         Then I should see and press "Projects" within 10 seconds
         Then I should see and press "<project-name>" within 10 seconds
         Then I press Options span
