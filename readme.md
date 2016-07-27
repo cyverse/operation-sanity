@@ -41,6 +41,8 @@ The test suite has been configured to be run using:
 `time bash run.bash 2`  
 where 2 is the max number of processes you want run.
 
+Alternatively, the script can be used as a guidebook for running each step of the test suite individually. Open run.bash in a text editor and manually copy each step into the command line. You'll have to manually change the `$PROCESSES` variable to the number of processes you want to run, usually 2-4.
+
 ###For reference:
 To run a single feature:  
 `behave launch.feature`
@@ -60,7 +62,7 @@ where 38 is the line number.
 
 ##To do:
 ### More urgent:
-- test ssh and stuff in check_featured.feature using paramiko (hard)
+- test ssh functionality in check_featured.feature using paramiko (hard)
 
 ### Less urgent:
 - Test airport ui

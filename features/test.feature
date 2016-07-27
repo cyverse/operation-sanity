@@ -30,7 +30,7 @@ Feature: Test web shells of featured images
         And I press "New"
         And I press "Volume"
         Then I should see "Create volume" within 10 seconds
-        And I type slowly "BDD-Volume" to "0" index to class "form-control"
+        And I type slowly "BDD-Volume" to "0" index of class "form-control"
         And I wait for 10 seconds
         And I press "Create volume"
         Then I should see and press "BDD-Volume" within 10 seconds
