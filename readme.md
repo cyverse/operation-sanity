@@ -60,5 +60,17 @@ To run a single scenario within an outline:
 `behave features/launch.feature:38`  
 where 38 is the line number.
 
+## FAQ:
+
+Q. I get a "This application is not authorized to use CAS" page after logging in.  
+A.  Restart your tests. I'm not sure why this happens.
+
+Q. I get an error:  
+`Instance could not be launched 504:`
+`Multiple connection attempts to the provider`
+`29ee80ff-ab20-441e-a752-da682e1d40e3 have failed. `
+`Please try again later.`  
+A. This usually happens when you run the script with 4 or more processes. Try re-running run.bash with an argument of 2.
+
 ##To do:
 - test ssh functionality in test.feature using paramiko
