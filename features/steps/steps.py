@@ -73,6 +73,19 @@ def i_should_see_and_press_within_timeout(context, name, timeout):
     assert element, u'Element not found'
     element.first.click()
 
+@step(u'I double-check that I press "{name}"')
+def i_should_see_and_press_within_timeout(context, name):
+    element = context.browser.find_by_xpath(
+        ("//*[@id='%(name)s']|"
+         "//*[@name='%(name)s']|"
+         "//button[contains(string(), '%(name)s')]|"
+         "//input[@type='button' and contains(string(), '%(name)s')]|"
+         "//input[@type='button' and contains(@value, '%(name)s')]|"
+         "//input[@type='submit' and contains(@value, '%(name)s')]|"
+         "//a[contains(string(), '%(name)s')]") % {'name': name})
+    if element:
+        element.first.click()
+
 @step(u'I login to Atmosphere')
 def i_login_to_atmo(context):
     # visit URL
