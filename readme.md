@@ -17,7 +17,7 @@ This repo provides tests for:
 ##How to run:
 
 ###Installation: 
-1. Ensure you have firefox 46 installed (47 won't work)
+1. Ensure you have firefox 46 installed (47+ won't work)
 1. Clone this repo
 1. Go to root of the project
 1. Create a virtual env 
@@ -61,8 +61,4 @@ To run a single scenario within an outline:
 where 38 is the line number.
 
 ##To do:
-### More urgent:
-- test ssh functionality in check_featured.feature using paramiko (hard)
-
-### Less urgent:
-- Test airport ui
+- test ssh functionality in test.feature using paramiko

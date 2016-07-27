@@ -34,19 +34,19 @@ Feature: Launch all featured images
     Examples: Featured images
         | image                          | project-name | scroll | provider                       |
         | Ubuntu 14.04.2 XFCE Base       | BDD-1        | 0      | iPlant Workshop Cloud - Tucson​ |
-        | Ubuntu 14.04 with Docker 1.7.x | BDD-2        | 150    | iPlant Workshop Cloud - Tucson​ |
-        | Ubuntu 14.04.3 NoGUI Base      | BDD-3        | 300    | iPlant Workshop Cloud - Tucson​ |
-        | functional genomics_v1.0       | BDD-4        | 450    | iPlant Workshop Cloud - Tucson​ |
-        | iPlant Centos 6.5 NoGUI Base3  | BDD-5        | 600    | iPlant Workshop Cloud - Tucson​ |
+        | Ubuntu 14.04 with Docker 1.7.x | BDD-2        | 0      | iPlant Workshop Cloud - Tucson​ |
+        | Ubuntu 14.04.3 NoGUI Base      | BDD-3        | 0      | iPlant Workshop Cloud - Tucson​ |
+        | functional genomics_v1.0       | BDD-4        | 150    | iPlant Workshop Cloud - Tucson​ |
+        | iPlant Centos 6.5 NoGUI Base3  | BDD-5        | 150    | iPlant Workshop Cloud - Tucson​ |
 
-        | Ubuntu 14.04.2 XFCE Base       | BDD-6        | 0      | iPlant Cloud - Tucson​          |
-        | Ubuntu 14.04 with Docker 1.7.x | BDD-7        | 150    | iPlant Cloud - Tucson​          |
+        | Ubuntu 14.04.2 XFCE Base       | BDD-6        | 150    | iPlant Cloud - Tucson​          |
+        | Ubuntu 14.04 with Docker 1.7.x | BDD-7        | 300    | iPlant Cloud - Tucson​          |
         | Ubuntu 14.04.3 NoGUI Base      | BDD-8        | 300    | iPlant Cloud - Tucson​          |
-        | functional genomics_v1.0       | BDD-9        | 450    | iPlant Cloud - Tucson​          |
-        | iPlant Centos 6.5 NoGUI Base3  | BDD-10       | 600    | iPlant Cloud - Tucson​          |
+        | functional genomics_v1.0       | BDD-9        | 300    | iPlant Cloud - Tucson​          |
+        | iPlant Centos 6.5 NoGUI Base3  | BDD-10       | 0      | iPlant Cloud - Tucson​          |
 
         | Ubuntu 14.04.2 XFCE Base       | BDD-11       | 0      | iPlant Cloud - Austin          |
         | Ubuntu 14.04 with Docker 1.7.x | BDD-12       | 150    | iPlant Cloud - Austin          |
         | Ubuntu 14.04.3 NoGUI Base      | BDD-13       | 300    | iPlant Cloud - Austin          |
-        | functional genomics_v1.0       | BDD-14       | 450    | iPlant Cloud - Austin          |
-        | iPlant Centos 6.5 NoGUI Base3  | BDD-15       | 600    | iPlant Cloud - Austin          |
+        | functional genomics_v1.0       | BDD-14       | 300    | iPlant Cloud - Austin          |
+        | iPlant Centos 6.5 NoGUI Base3  | BDD-15       | 300    | iPlant Cloud - Austin          |
