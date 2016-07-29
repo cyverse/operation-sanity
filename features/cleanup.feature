@@ -17,6 +17,7 @@ Feature: Delete all featured images
         Then I should see and press "Yes, delete this instance" within 10 seconds
         Then I should see "Deleting" within 10 seconds
         Then I should see "You have not added any instances to this project." within 100 seconds
+        Then I wait for 15 seconds
         # Delete project
         Then I should see and press "Projects" within 10 seconds
         Then I should see and press "<project-name>" within 10 seconds
