@@ -34,7 +34,8 @@ PROCESSES=$1
 echo -e "********************************************"
 echo -e "********| STEP 1: LAUNCH INSTANCES |********"
 echo -e "********************************************"
-echo -e "'p' indicates pass and 'f' indicates fail.\n"
+echo -e "'p' indicates pass and 'f' indicates fail."
+echo -e "Not all 'f's indicate failure here. Check to see if failed tests still launched the instance.\n"
 behave --processes $PROCESSES --parallel-element scenario features/launch.feature
 
 # STEP 2: ENSURE INSTANCES ARE ACTIVE
@@ -50,7 +51,7 @@ echo -e "\n*********************************************************"
 echo -e "********| STEP 3: TEST VOLUMES, LINKS, TICKETS |*********"
 echo -e "*********************************************************"
 echo -e "Any red text here can be interpreted as failure.\n"
-behave  features/test.feature
+behave features/test.feature
 
 # STEP 4: CLEAN UP
 echo -e "\n************************************"

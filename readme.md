@@ -43,7 +43,7 @@ where 2 is the max number of processes you want run.
 
 Alternatively, the script can be used as a guidebook for running each step of the test suite individually. Open run.bash in a text editor and manually copy each step into the command line. You'll have to manually change the `$PROCESSES` variable to the number of processes you want to run, usually 2-4.
 
-###For reference:
+###Reference:
 To run a single feature:  
 `behave launch.feature`
 
@@ -71,6 +71,10 @@ Q. I get an error:
 `29ee80ff-ab20-441e-a752-da682e1d40e3 have failed. `
 `Please try again later.`  
 A. This usually happens when you run the script with 4 or more processes. Try re-running run.bash with an argument of 2.
+
+Q. My tests are erroing out with:
+`Element is not clickable at point (764.683349609375, 25). Other element would receive the click: <div style="display: block;" class="modal fade in" data-reactid=".2"></div>`  
+A. This is caused by a modal that says: `Looks like you have some resources that aren't in a project!`  This happens when you leave the page soon after launching an instance, or you delete a project soon after deleting an instance within that project. 
 
 ##To do:
 - test ssh functionality in test.feature using paramiko

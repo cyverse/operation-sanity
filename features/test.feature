@@ -14,7 +14,7 @@ Feature: Test web shells of featured images
     Scenario: Report an instance
         When I login to Atmosphere
         Then I should see and press "Projects" within 10 seconds
-        Then I should see and press "BDD-1" within 10 seconds
+        Then I should see and press "BDD-01" within 10 seconds
         Then I should see and press "Ubuntu 14.04.2 XFCE Base" within 10 seconds
         Then I should see "Report" within 10 seconds
         And I press span "Report"
@@ -26,7 +26,7 @@ Feature: Test web shells of featured images
     Scenario: Attach a volume
         When I login to Atmosphere
         Then I should see and press "Projects" within 10 seconds
-        Then I should see and press "BDD-1" within 10 seconds
+        Then I should see and press "BDD-01" within 10 seconds
         And I press "New"
         And I press "Volume"
         Then I should see "Create volume" within 10 seconds
@@ -42,7 +42,7 @@ Feature: Test web shells of featured images
     Scenario: Report a volume
         When I login to Atmosphere
         Then I should see and press "Projects" within 10 seconds
-        Then I should see and press "BDD-1" within 10 seconds
+        Then I should see and press "BDD-01" within 10 seconds
         Then I should see and press "BDD-Volume" within 10 seconds
         Then I should see "Report" within 10 seconds
         Then I press span "Report"
@@ -54,7 +54,7 @@ Feature: Test web shells of featured images
     Scenario: Delete a volume
         When I login to Atmosphere
         Then I should see and press "Projects" within 10 seconds
-        Then I should see and press "BDD-1" within 10 seconds
+        Then I should see and press "BDD-01" within 10 seconds
         Then I should see and press "BDD-Volume" within 10 seconds
         Then I should see "Detach" within 10 seconds
         Then I press span "Detach"
@@ -69,7 +69,7 @@ Feature: Test web shells of featured images
     Scenario: Create external link
         When I login to Atmosphere
         Then I should see and press "Projects" within 10 seconds
-        Then I should see and press "BDD-1" within 10 seconds
+        Then I should see and press "BDD-01" within 10 seconds
         And I press "New"
         And I should see and press "Link" within 10 seconds
         Then I should see "Create a Link" within 10 seconds
@@ -82,7 +82,7 @@ Feature: Test web shells of featured images
     Scenario: Delete external link
         When I login to Atmosphere
         Then I should see and press "Projects" within 10 seconds
-        Then I should see and press "BDD-1" within 10 seconds
+        Then I should see and press "BDD-01" within 10 seconds
         Then I should see and press "Test-Link" within 10 seconds
         Then I should see "Delete" within 10 seconds
         And I press Delete span
