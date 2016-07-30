@@ -1,29 +1,24 @@
-# This feature deletes the images and project created by launch_featured.feature
-
-Feature: Delete all featured images
+Feature: Test web shells of featured images
 
     Background:
         Given a browser
 
-    Scenario Outline: Delete instances and projects
-        When I resize the browser to 5000x5000
+    Scenario Outline: Check web shell
+        # Login
         When I login to Atmosphere
-        # Delete instance
+
+        # Check that instance is active
         Then I should see and press "Projects" within 30 seconds
-        Then I scroll down 200 pixels
-        Then I should see and press "<project-name>" within 10 seconds
-        Then I should see and press "<image>" within 10 seconds
-        Then I press Delete span
-        Then I should see and press "Yes, delete this instance" within 10 seconds
-        Then I should see "Deleting" within 10 seconds
-        Then I should see "You have not added any instances to this project." within 100 seconds
-        Then I wait for 15 seconds
-        # Delete project
-        Then I should see and press "Projects" within 10 seconds
-        Then I should see and press "<project-name>" within 10 seconds
-        Then I press Options span
-        Then I should see and press "Delete Project" within 10 seconds
-        Then I should see and press "Yes, delete the project" within 10 seconds
+        Then I scroll down <scroll> pixels
+        Then I should see and press "<project-name>" within 30 seconds
+        Then I wait for instance to become active
+
+        # Web shell checking has been commented out because the web shell has been disabled recently
+
+        # Check web shell
+        #Then I should see and press "<image>" within 30 seconds
+        #Then I enter the Web Shell
+        #Then I should see "Access is restricted to AUTHORIZED USERS only!" within 30 seconds
 
     Examples: Featured images
         | image                          | project-name | scroll | provider                       |
@@ -33,7 +28,7 @@ Feature: Delete all featured images
         | functional genomics_v1.0       | BDD-04       | 100    | iPlant Workshop Cloud - Tucson​ |
         | iPlant Centos 6.5 NoGUI Base3  | BDD-05       | 100    | iPlant Workshop Cloud - Tucson​ |
 
-        | Ubuntu 14.04.2 XFCE Base       | BDD-06       | 100    | iPlant Cloud - Tucson​          |
+        | Ubuntu 14.04.2 XFCE Base       | BDD-08       | 100    | iPlant Cloud - Tucson​          |
         | Ubuntu 14.04 with Docker 1.7.x | BDD-07       | 200    | iPlant Cloud - Tucson​          |
         | Ubuntu 14.04.3 NoGUI Base      | BDD-08       | 200    | iPlant Cloud - Tucson​          |
         | functional genomics_v1.0       | BDD-09       | 200    | iPlant Cloud - Tucson​          |
