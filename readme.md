@@ -1,4 +1,4 @@
-##Welcome to Operation Sanity!
+## Welcome to Operation Sanity!
 
 Operation Sanity is a set of behavior driven development tests for <a href="https://github.com/iPlantCollaborativeOpenSource/atmosphere">Atmosphere</a> implemented using <a href="https://github.com/behave/behave">Behave</a>, <a href="https://github.com/ggozad/behaving">Behaving</a>, and <a href="https://github.com/vishalm/behave-parallel">Behave-parallel</a>.
 
@@ -6,46 +6,54 @@ This repo provides tests for:
 
 * Creating and deleting projects
 * Launching all 5 featured images on all 3 providers
-* Ensuring those instances launch 
+* Ensuring those instances launch
 * Reporting and deleting featured images
 * Creating, reporting, and deleting volumes
 * Creating and deleting links
-* Testing web shell operation 
+* Testing web shell operation
 * Submitting resource request ticket
 * Submitting Atmosphere feedback
 
-##How to run:
+## How to run:
 
-###Installation: 
-1. Ensure you have firefox 46 installed (47+ won't work)
+### Installation:
+1. Ensure you have Firefox installed (48 works)
 1. Clone this repo
 1. Go to root of the project
-1. Create a virtual env 
+1. Create a virtual env
 
 * `virtualenv env`
 * `source env/bin/activate`
 * `pip install -r requirements.txt`
 
-Additionally, you'll also need to add these lines to your ~/.bash_profile:  
+### Set Up Environment Variables
+
+#### Initial Setup
+The test suite looks for three environment variables which tell it how to log into Atmosphere. The URL can be any installation of Atmosphere.
+
+You can persistently store the username and URL in your ~/.bash_profile (OS X) or ~/.bashrc (Linux):
 `export SANITYUSER=myAtmoUsername`  
+`export SANITYURL="https://atmo.cyverse.org"`  
+
+The first time you run the test suite, you'll need to populate the environment with `source ~/.bash_profile` (OS X) or `source ~/.bashrc` (Linux). (In the future, new terminal windows will have the environment populated automatically.)
+
+#### Preparation for Each Run
+Before you run the test suite, you also need to populate an environment variable containing your Atmosphere password. Enter this on the command line:
+
 `export SANITYPASS=myAtmoPassword`  
-`export SANITYURL="https://atmo.iplantcollaborative.org"`  
-The URL can be any installation of Atmosphere.
 
+Please do not store your Atmosphere password persistently in plaintext.
 
-Then source it:  
-`source ~/.bash_profile`
-
-###Run tests:
+### Run tests:
 The test suite has been configured to be run using:  
 `time bash run.bash 2`  
 where 2 is the max number of processes you want run.
 
 Alternatively, the script can be used as a guidebook for running each step of the test suite individually. Open run.bash in a text editor and manually copy each step into the command line. You'll have to manually change the `$PROCESSES` variable to the number of processes you want to run, usually 2-4.
 
-###Reference:
+### Reference:
 To run a single feature:  
-`behave launch.feature`
+`behave features/launch.feature`
 
 To run multiple scenarios in parallel (good for outlines):  
 `behave --processes 4 --parallel-element scenario`
@@ -79,5 +87,5 @@ where 38 is the line number.
 **Q.** Why not use personas?  
 **A.** Behave-parallel doesn't have `context.execute_steps` implemented, which personas make heavy use of. This is also why some steps in steps.py are enormous.
 
-##To do:
+## To do:
 - test ssh functionality in test.feature using paramiko
