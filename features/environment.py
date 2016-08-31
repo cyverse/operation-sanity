@@ -19,7 +19,6 @@ def after_feature(context, feature):
 
 def before_scenario(context, scenario):
     benv.before_scenario(context, scenario)
-    context.personas = PERSONAS
 
 def after_scenario(context, scenario):
     benv.after_scenario(context, scenario)
