@@ -17,7 +17,7 @@ This repo provides tests for:
 ## How to run:
 
 ### Installation:
-1. Ensure you have Firefox installed (48 works)
+1. Ensure you have Firefox installed. If the tests don't run, you may need to downgrade to a version of Firefox supported by Selenium. As of September 1 2016, Firefox 48 works with Linux, but Firefox 46 is required for OS X. You can find older versions of Firefox at https://ftp.mozilla.org/pub/firefox/releases/.
 1. Clone this repo
 1. Go to root of the project
 1. Create a virtual env
