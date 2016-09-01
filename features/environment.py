@@ -1,8 +1,11 @@
 import os
+
 from behaving import environment as benv
+
 
 def before_all(context):
     benv.before_all(context)
+    context.default_browser = os.environ.get('SANITYBROWSER', '')
 
 
 def after_all(context):
@@ -19,6 +22,7 @@ def after_feature(context, feature):
 
 def before_scenario(context, scenario):
     benv.before_scenario(context, scenario)
+
 
 def after_scenario(context, scenario):
     benv.after_scenario(context, scenario)
