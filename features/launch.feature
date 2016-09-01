@@ -1,5 +1,5 @@
 # This feature launches all of the featured images on all of the providers of Atmosphere and ensures they get to the networking step
-# Ensuring that instances get to the networking step is necessary, otherwise a modal will continuously pop up demanding you put 
+# Ensuring that instances get to the networking step is necessary, otherwise a modal will continuously pop up demanding you put
 # instances into a project, breaking all scripts.
 
 Feature: Launch all featured images
@@ -8,7 +8,6 @@ Feature: Launch all featured images
         Given a browser
 
     Scenario Outline: Launch all featured images
-        When I resize the browser to 5000x5000
         # Login
         When I login to Atmosphere
         # Create project

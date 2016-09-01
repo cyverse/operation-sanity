@@ -6,7 +6,6 @@ Feature: Delete all featured images
         Given a browser
 
     Scenario Outline: Delete instances and projects
-        When I resize the browser to 5000x5000
         When I login to Atmosphere
         # Delete instance
         Then I should see and press "Projects" within 30 seconds
