@@ -6,6 +6,9 @@ from behaving.personas.steps import *
 from behaving.personas.persona import persona_vars
 import time
 
+APPLICATION_BACKDOOR = '/application_backdoor'
+
+
 @step(u'I wait for instance to become active')
 def i_wait_for_instance(context):
     if context.browser.is_element_present_by_css("[class='instance-status-light']"):
@@ -89,7 +92,10 @@ def i_should_see_and_press_within_timeout(context, name):
 @step(u'I login to Atmosphere')
 def i_login_to_atmo(context):
     # visit URL
-    context.browser.visit(os.environ.get('SANITYURL'))
+    context.browser.visit(os.environ['SANITYURL'])
+    # Only press login if we're not using a backdoor
+    if os.environ['SANITYURL'].endswith(APPLICATION_BACKDOOR):
+        return
     # press login
     assert context.browser.is_text_present('Login', wait_time=10), u'Text not found'
     name = 'Login'
