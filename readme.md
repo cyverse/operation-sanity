@@ -44,6 +44,12 @@ Before you run the test suite, you also need to populate an environment variable
 
 Please do not store your Atmosphere password persistently in plaintext.
 
+You can also set a browser to use. The default browser is Firefox. To use Chrome, set the SANITYBROWSER environment 
+variable:
+
+`export SANITYBROWSER=chrome`
+
+
 ### Run tests:
 The test suite has been configured to be run using:  
 `time bash run.bash 2`  
