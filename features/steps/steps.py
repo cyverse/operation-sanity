@@ -94,21 +94,20 @@ def i_login_to_atmo(context):
     # visit URL
     context.browser.visit(os.environ['SANITYURL'])
     # Only press login if we're not using a backdoor
-    if os.environ['SANITYURL'].endswith(APPLICATION_BACKDOOR):
-        return
-    # press login
-    assert context.browser.is_text_present('Login', wait_time=10), u'Text not found'
-    name = 'Login'
-    element = context.browser.find_by_xpath(
-        ("//*[@id='%(name)s']|"
-         "//*[@name='%(name)s']|"
-         "//button[contains(string(), '%(name)s')]|"
-         "//input[@type='button' and contains(string(), '%(name)s')]|"
-         "//input[@type='button' and contains(@value, '%(name)s')]|"
-         "//input[@type='submit' and contains(@value, '%(name)s')]|"
-         "//a[contains(string(), '%(name)s')]") % {'name': name})
-    assert element, u'Element not found'
-    element.first.click()
+    if not os.environ['SANITYURL'].endswith(APPLICATION_BACKDOOR):
+        # Press Login in Troposphere UI
+        assert context.browser.is_text_present('Login', wait_time=10), u'Text not found'
+        name = 'Login'
+        element = context.browser.find_by_xpath(
+            ("//*[@id='%(name)s']|"
+             "//*[@name='%(name)s']|"
+             "//button[contains(string(), '%(name)s')]|"
+             "//input[@type='button' and contains(string(), '%(name)s')]|"
+             "//input[@type='button' and contains(@value, '%(name)s')]|"
+             "//input[@type='submit' and contains(@value, '%(name)s')]|"
+             "//a[contains(string(), '%(name)s')]") % {'name': name})
+        assert element, u'Element not found'
+        element.first.click()
     # enter info
     context.browser.fill("username", os.environ.get('SANITYUSER'))
     context.browser.fill("password", os.environ.get('SANITYPASS'))
@@ -146,7 +145,7 @@ def i_choose_in_provider_dropdown(context, provider):
     # sometimes a non-printing space unicode character gets appended
     if not provider[-1].isalpha():
         provider = provider[:-1]
-    select.select_by_visible_text(provider)    
+    select.select_by_visible_text(provider)
 
 @step(u'I enter the Web Shell')
 def i_enter_web_shell(context):
@@ -206,7 +205,7 @@ def i_create_project(context, project):
             u'Element not found or could not set name'
         for key in context.browser.type(name, project, slowly=True):
             assert key
-        
+
         # And I type slowly "%s" to "1" index of class "form-control"
         name = "temp_form_name_1"
         assert context.browser.evaluate_script("document.getElementsByClassName('form-control')[1].name = '%s'" % (name)), \
