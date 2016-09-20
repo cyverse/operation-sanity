@@ -19,13 +19,13 @@ Feature: Launch all featured images
         Then I should see and press "Images" within 10 seconds
         Then I should see "SEARCH" within 10 seconds
         When I type slowly "<image-guid>" to "0" index of class "form-control"
-        Then I should see "<image-name>" within 15 seconds
-        Then I press "<image-name>"
+        Then I should see "<image-name>" within 20 seconds
+        When I press "<image-name>"
         Then I should see and press "Launch" within 10 seconds
-        Then I should see "Launch an Instance / Basic Options" within 10 seconds
+        And I should see "Launch an Instance / Basic Options" within 10 seconds
         And I should see "alloted GBs of Memory" within 10 seconds
-        And I choose provider "<provider>" from Provider dropdown
-        When I choose "BDD-01" from Project dropdown
+        When I choose provider "<provider>" from Provider dropdown
+        And I choose "BDD-01" from Project dropdown
         # This button sometimes gives trouble
         And I press "Launch Instance"
         And I wait for 3 seconds
