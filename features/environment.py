@@ -19,10 +19,10 @@ def after_feature(context, feature):
 
 
 def before_scenario(context, scenario):
-    # benv.before_scenario(context, scenario)
-    pass
+    if 'persist_browser' not in scenario.tags:
+        benv.before_scenario(context, scenario)
 
 
 def after_scenario(context, scenario):
-    # benv.after_scenario(context, scenario)
-    pass
+    if 'persist_browser' not in scenario.tags:
+        benv.after_scenario(context, scenario)

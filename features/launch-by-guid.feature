@@ -2,14 +2,17 @@
 
 Feature: Launch all featured images
 
+    @persist_browser
     Scenario: Log into atmosphere
         Given a browser
         When I login to Atmosphere
 
+    @persist_browser
     Scenario: Create project
         Given a browser
         Then I create project "BDD-01" if necessary
 
+    @persist_browser
     Scenario Outline: Launch all featured images
         Given a browser
         # Launch instance
