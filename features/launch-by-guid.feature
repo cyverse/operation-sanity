@@ -16,7 +16,7 @@ Feature: Launch all featured images
     Scenario Outline: Launch all featured images
         Given a browser
         # Launch instance
-        Then I should see and press "Images" within 10 seconds
+        When I go to "/application/images"
         Then I should see "SEARCH" within 10 seconds
         When I type slowly "<image-guid>" to "0" index of class "form-control"
         Then I should see "<image-name>" within 20 seconds

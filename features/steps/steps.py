@@ -65,15 +65,15 @@ def i_press_delete(context):
 @step(u'I should see and press "{name}" within {timeout:d} seconds')
 def i_should_see_and_press_within_timeout(context, name, timeout):
     assert context.browser.is_text_present(name, wait_time=timeout), u'Text not found'
-    element = context.browser.find_by_xpath(
-        ("//*[@id='%(name)s']|"
-         "//*[@name='%(name)s']|"
-         "//button[contains(string(), '%(name)s')]|"
-         "//input[@type='button' and contains(string(), '%(name)s')]|"
-         "//input[@type='button' and contains(@value, '%(name)s')]|"
-         "//input[@type='submit' and contains(@value, '%(name)s')]|"
-         "//a[contains(string(), '%(name)s')]") % {'name': name})
-    assert element, u'Element not found'
+    element_xpath = "//*[@id='%(name)s']|" \
+                    "//*[@name='%(name)s']|" \
+                    "//button[contains(string(), '%(name)s')]|" \
+                    "//input[@type='button' and contains(string(), '%(name)s')]|" \
+                    "//input[@type='button' and contains(@value, '%(name)s')]|" \
+                    "//input[@type='submit' and contains(@value, '%(name)s')]|" \
+                    "//a[contains(string(), '%(name)s')]" % {'name': name}
+    assert context.browser.is_element_visible_by_xpath(element_xpath, wait_time=10)
+    element = context.browser.find_by_xpath(element_xpath)
     element.first.click()
 
 @step(u'I double-check that I press "{name}"')
@@ -143,7 +143,7 @@ def i_choose_in_provider_dropdown(context, provider):
     assert elem, u'Element not found'
     select = Select(elem)
     # sometimes a non-printing space unicode character gets appended
-    if not provider[-1].isalpha():
+    while not provider[-1].isalpha():
         provider = provider[:-1]
     select.select_by_visible_text(provider)
 
@@ -200,10 +200,11 @@ def i_create_project(context, project):
         assert context.browser.is_text_present(name, wait_time=10), u'Text not found'
 
         # And I type slowly "%s" to "0" index of class "form-control"
-        name = "temp_form_name_0"
-        assert context.browser.evaluate_script("document.getElementsByClassName('form-control')[0].name = '%s'" % (name)), \
-            u'Element not found or could not set name'
-        for key in context.browser.type(name, project, slowly=True):
+        assert context.browser.is_element_visible_by_xpath("//div[@class='modal-body']//input[@type='text']",
+                                                           wait_time=10)
+        element = context.browser.find_by_xpath("//div[@class='modal-body']//input[@type='text']")
+        assert element, u'Element not found'
+        for key in element.first.type(project, slowly=True):
             assert key
 
         # And I type slowly "%s" to "1" index of class "form-control"
