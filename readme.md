@@ -17,7 +17,7 @@ This repo provides tests for:
 ## How to run:
 
 ### Installation:
-1. Ensure you have Firefox installed. If the tests don't run, you may need to downgrade to a version of Firefox supported by Selenium. As of September 1 2016, Firefox 48 works with Linux, but Firefox 46 is required for OS X. You can find older versions of Firefox at https://ftp.mozilla.org/pub/firefox/releases/.
+1. You have a choice of using Firefox or Chromium, and your chosen browser must be installed on the same system you're running Operation Sanity from. If using Firefox and the tests don't run, you may need to downgrade to a version of Firefox supported by Selenium. As of September 1 2016, Firefox 48 works with Linux, but Firefox 46 is required for OS X. You can find older versions of Firefox at https://ftp.mozilla.org/pub/firefox/releases/.
 1. Clone this repo
 1. Go to root of the project
 1. Create a virtual env
@@ -44,8 +44,7 @@ Before you run the test suite, you also need to populate an environment variable
 
 Please do not store your Atmosphere password persistently in plaintext.
 
-You can also set a browser to use. The default browser is Firefox. To use Chrome, set the SANITYBROWSER environment 
-variable:
+If using Chromium, set the SANITYBROWSER environment variable. (Firefox will be used if this is not set.)
 
 `export SANITYBROWSER=chrome`
 
