@@ -1,3 +1,4 @@
+from behave import *
 from behaving.web.steps import *
 from behaving.sms.steps import *
 from behaving.mail.steps import *
@@ -5,6 +6,8 @@ from behaving.notifications.gcm.steps import *
 from behaving.personas.steps import *
 from behaving.personas.persona import persona_vars
 import time
+
+from behaving.web.steps.basic import _retry
 
 APPLICATION_BACKDOOR = '/application_backdoor'
 
@@ -124,6 +127,33 @@ def i_login_to_atmo(context):
     assert element, u'Element not found'
     element.first.click()
 
+
+@step(u'I login to Jetstream')
+def i_login_to_jetstream(context):
+    # visit URL
+    context.browser.visit(os.environ['SANITYURL'])
+    # Only press login if we're not using a backdoor
+    if not os.environ['SANITYURL'].endswith(APPLICATION_BACKDOOR):
+        # Press Login in Troposphere UI
+        assert context.browser.is_text_present('Login', wait_time=10), u'Text not found'
+        name = 'Login'
+        element = context.browser.find_by_xpath(
+            ("//*[@id='%(name)s']|"
+             "//*[@name='%(name)s']|"
+             "//button[contains(string(), '%(name)s')]|"
+             "//input[@type='button' and contains(string(), '%(name)s')]|"
+             "//input[@type='button' and contains(@value, '%(name)s')]|"
+             "//input[@type='submit' and contains(@value, '%(name)s')]|"
+             "//a[contains(string(), '%(name)s')]") % {'name': name})
+        assert element, u'Element not found'
+        element.first.click()
+    # enter info
+    context.execute_steps(u'''When I press "login-btn"''')
+    context.browser.fill('login', os.environ.get('SANITYUSER'))
+    context.browser.fill('password', os.environ.get('SANITYPASS'))
+    # press: Sign In
+    context.execute_steps(u'''When I press "Sign In"''')
+
 @step(u'I choose "{value}" from Project dropdown')
 def i_choose_in_project_dropdown(context, value):
     name = "bdd-project"
@@ -133,19 +163,6 @@ def i_choose_in_project_dropdown(context, value):
     assert elem, u'Element not found'
     select = Select(elem)
     select.select_by_visible_text(value)
-
-@step(u'I choose provider "{provider}" from Provider dropdown')
-def i_choose_in_provider_dropdown(context, provider):
-    name = "bdd-provider"
-    assert context.browser.evaluate_script("document.getElementsByClassName('form-control')[3].name = '%s'" % (name)), \
-        u'Element not found or could not set name'
-    elem = context.browser.driver.find_element_by_name(name)
-    assert elem, u'Element not found'
-    select = Select(elem)
-    # sometimes a non-printing space unicode character gets appended
-    while not provider[-1].isalpha():
-        provider = provider[:-1]
-    select.select_by_visible_text(provider)
 
 @step(u'I enter the Web Shell')
 def i_enter_web_shell(context):
@@ -229,3 +246,27 @@ def i_create_project(context, project):
 
         # Then I should see "%s" within 10 seconds
         assert context.browser.is_text_present(project, wait_time=10), u'Text not found'
+
+
+@step(u'"{name}" should be enabled within {timeout:d} seconds')
+@persona_vars
+def is_enabled(context, name, timeout):
+    el = context.browser.find_by_xpath(
+        ("//*[@id='%(name)s']|"
+         "//*[@name='%(name)s']") % {'name': name})
+    assert el, u'Element not found'
+    element = el.first
+
+    check = lambda: element._element.is_enabled()
+    assert _retry(check, timeout), u'Element is not enabled'
+
+
+@step(u'element with xpath "{xpath}" should be enabled within {timeout:d} seconds')
+@persona_vars
+def is_enabled(context, xpath, timeout):
+    el = context.browser.find_by_xpath(xpath)
+    assert el, u'Element not found'
+    element = el.first
+
+    check = lambda: element._element.is_enabled()
+    assert _retry(check, timeout), u'Element is not enabled'

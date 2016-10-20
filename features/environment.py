@@ -30,6 +30,8 @@ def before_scenario(context, scenario):
 
 
 def after_scenario(context, scenario):
+    if scenario.status == 'failed':
+        print('Failed. Put a breakpoint here to inspect stuff')
     if 'persist_browser' not in scenario.tags:
         benv.after_scenario(context, scenario)
 
