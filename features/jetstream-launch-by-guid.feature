@@ -10,7 +10,9 @@ Feature: Launch all featured images
   @persist_browser
   Scenario: Create project
     Given a browser
+    And I migrate resources to project "BDD-01" if necessary
     Then I create project "BDD-01" if necessary
+
 
   @persist_browser
   Scenario Outline: Launch all featured images
@@ -28,8 +30,6 @@ Feature: Launch all featured images
     And I should see "Launch an Instance / Basic Options" within 10 seconds
     And I should see "alloted GBs of Memory" within 10 seconds
     When I choose "<provider>" from "provider"
-    And I pause the tests
-#    And I choose "BDD-01" from Project dropdown
     And I choose "BDD-01" from "project"
       # This button sometimes gives trouble
     And I press "Launch Instance"
@@ -38,9 +38,9 @@ Feature: Launch all featured images
     Then I should see "Build" within 60 seconds
 
     Examples: Selected images
-      | image-guid                           | image-name                     | provider         |
-#      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - Indiana University |
-      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - TACC |
+      | image-guid                           | image-name                     | provider                       |
+      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - Indiana University |
+      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - TACC               |
 
 
 #Ubuntu 14.04.3 Development GUI - 30f31162-2a7a-4ac5-be1a-45c7e579a04b (version 1.3)

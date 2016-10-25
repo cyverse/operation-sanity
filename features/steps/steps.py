@@ -164,6 +164,15 @@ def i_choose_in_project_dropdown(context, value):
     select = Select(elem)
     select.select_by_visible_text(value)
 
+
+@step(u'I choose option "{option}" from dropdown with label "{label}"')
+def i_choose_in_provider_dropdown(context, option, label):
+    elem = context.browser.find_by_xpath(
+        "//label[contains(string(), '{}')]/following-sibling::select[1]/option[contains(string(), '{}')]".format(
+            label, option))
+    option = elem[0]
+    option._element.click()
+
 @step(u'I enter the Web Shell')
 def i_enter_web_shell(context):
     name = "Open Web Shell"
@@ -178,6 +187,20 @@ def i_scroll_down(context, pixels):
     #while not find_visible_by_css(context, (("a[href*='%s']") % ID)):
     #    context.browser.evaluate_script("window.scrollBy(0, 100)")
     context.browser.evaluate_script("window.scrollBy(0, %s);" % pixels)
+
+
+@step(u'I migrate resources to project "{project}" if necessary')
+def migrate_resources_if_necessary(context, project):
+    modal_xpath = "//div[@class='modal-header']//h1[contains(string(), 'Migrate Resources')]"
+    modal = context.browser.find_by_xpath(modal_xpath)
+    if not modal:
+        return
+    old_url = context.browser.url
+    context.execute_steps(u'''When I choose "{}" from "project"'''.format(project))
+    context.execute_steps(u'''When I press "Move resources into project"''')
+    context.execute_steps(u'''Then I should not see an element with xpath "{}" within 3 seconds'''.format(modal_xpath))
+    context.execute_steps(u'''Then I go to "{}"'''.format(old_url))
+
 
 # This step is a monster because behave-parallel does not have context.execute_steps implemented
 # otherwise this function is about 10 lines
