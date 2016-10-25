@@ -57,6 +57,9 @@ where 2 is the max number of processes you want run.
 Alternatively, the script can be used as a guidebook for running each step of the test suite individually. Open run.bash in a text editor and manually copy each step into the command line. You'll have to manually change the `$PROCESSES` variable to the number of processes you want to run, usually 2-4.
 
 ### Reference:
+To launch a bunch of instances specified by GUID and name:
+`behave features/launch-by-guid.feature`
+
 To run a single feature:  
 `behave features/launch.feature`
 
@@ -91,6 +94,8 @@ where 38 is the line number.
 
 **Q.** Why not use personas?  
 **A.** Behave-parallel doesn't have `context.execute_steps` implemented, which personas make heavy use of. This is also why some steps in steps.py are enormous.
+
+Some of the scenarios use the `@persist_browser` tag, which does not destroy browser state between scenarios (as configured in `environment.py`).
 
 ## To do:
 - test ssh functionality in test.feature using paramiko
