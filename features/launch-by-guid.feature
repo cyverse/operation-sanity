@@ -35,6 +35,7 @@ Feature: Launch all featured images
     And I press "Launch Instance"
     And I wait for 3 seconds
     And I double-check that I press "Launch Instance"
+    And I wait for 10 seconds
     Then I should see "Build" within 60 seconds
 
     Examples: Selected images

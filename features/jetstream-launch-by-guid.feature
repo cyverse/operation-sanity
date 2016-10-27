@@ -36,20 +36,14 @@ Feature: Launch all featured images
     And I press "Launch Instance"
     And I wait for 3 seconds
     And I double-check that I press "Launch Instance"
+    And I wait for 10 seconds
     Then I should see "Build" within 60 seconds
 
     Examples: Selected images
-      | image-guid                           | image-name                     | provider                       |
-      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - Indiana University |
-      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - TACC               |
-
-
-#Ubuntu 14.04.3 Development GUI - 30f31162-2a7a-4ac5-be1a-45c7e579a04b (version 1.3)
-
-
-#Centos 7 (7.2) Development GUI - 4c2f0709-00e5-49bc-bcbf-e452862854a1
-##* Ongoing issues with VNC installation on this image -- Do not use vnc*
-#CentOS 7 R with Intel compilers - 78e1499d-cc9a-4453-9749-785ae7653010
-##REQUIRES a m1.small or larger VM to launch
-#CentOS 6 (6.8) Development GUI - 2f000dc6-b6f4-448d-9ed3-dea04c54f41f
-#BioLinux 8 - b40b2ef5-23e9-4305-8372-35e891e55fc5
+      | image-guid                           | image-name                      | provider                       |
+      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI  | Jetstream - Indiana University |
+      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI  | Jetstream - TACC               |
+      | 4301b282-3726-4526-897d-9c9da2fe3057 | CentOS 6 (6.8) Development GUI  | Jetstream - Indiana University |
+      | 4301b282-3726-4526-897d-9c9da2fe3057 | CentOS 6 (6.8) Development GUI  | Jetstream - TACC               |
+#      | 78e1499d-cc9a-4453-9749-785ae7653010 | CentOS 7 R with Intel compilers | Jetstream - Indiana University |
+#      | 78e1499d-cc9a-4453-9749-785ae7653010 | CentOS 7 R with Intel compilers | Jetstream - TACC               |
