@@ -19,18 +19,19 @@ Feature: Launch all featured images
     Given a browser
       # Launch instance
     When I go to "/application/images"
-    Then I should see "SEARCH" within 10 seconds
+    And I migrate resources to project "BDD-01" if necessary
+    Then I should see "SEARCH" within 20 seconds
     And I should see an element with the css selector ".form-control" within 10 seconds
     When I type slowly "<image-guid>" to "0" index of class "form-control"
     Then I should see "<image-name>" within 20 seconds
-    When I press "<image-name>"
+    When I press the element with xpath "//h2[contains(string(), '<image-name>')]"
     Then I should see an element with the css selector ".launch-button" within 10 seconds
     And element with xpath "//button[contains(@class, 'launch-button')]" should be enabled within 5 seconds
     When I press the element with xpath "//button[contains(@class, 'launch-button')]"
     And I should see "Launch an Instance / Basic Options" within 10 seconds
     And I should see "alloted GBs of Memory" within 10 seconds
-    When I choose "<provider>" from "provider"
-    And I choose "BDD-01" from "project"
+    When I choose option "<provider>" from dropdown with label "Provider"
+    And I choose option "BDD-01" from dropdown with label "Project"
       # This button sometimes gives trouble
     And I press "Launch Instance"
     And I wait for 3 seconds
