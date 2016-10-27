@@ -31,6 +31,7 @@ Feature: Launch all featured images
     And I should see "Launch an Instance / Basic Options" within 10 seconds
     And I should see "alloted GBs of Memory" within 10 seconds
     When I choose option "<provider>" from dropdown with label "Provider"
+    And I choose option "<size>" from dropdown with label "Instance Size"
     And I choose option "BDD-01" from dropdown with label "Project"
       # This button sometimes gives trouble
     And I press "Launch Instance"
@@ -40,10 +41,10 @@ Feature: Launch all featured images
     Then I should see "Build" within 60 seconds
 
     Examples: Selected images
-      | image-guid                           | image-name                      | provider                       |
-      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI  | Jetstream - Indiana University |
-      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI  | Jetstream - TACC               |
-      | 4301b282-3726-4526-897d-9c9da2fe3057 | CentOS 6 (6.8) Development GUI  | Jetstream - Indiana University |
-      | 4301b282-3726-4526-897d-9c9da2fe3057 | CentOS 6 (6.8) Development GUI  | Jetstream - TACC               |
-#      | 78e1499d-cc9a-4453-9749-785ae7653010 | CentOS 7 R with Intel compilers | Jetstream - Indiana University |
-#      | 78e1499d-cc9a-4453-9749-785ae7653010 | CentOS 7 R with Intel compilers | Jetstream - TACC               |
+      | image-guid                           | image-name                     | provider                       | size    |
+      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - Indiana University | m1-tiny |
+      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - TACC               | m1-tiny |
+      | 4301b282-3726-4526-897d-9c9da2fe3057 | CentOS 6 (6.8) Development GUI | Jetstream - Indiana University | m1-tiny |
+      | 4301b282-3726-4526-897d-9c9da2fe3057 | CentOS 6 (6.8) Development GUI | Jetstream - TACC               | m1-tiny |
+#      | 78e1499d-cc9a-4453-9749-785ae7653010 | CentOS 7 R with Intel compilers | Jetstream - Indiana University | m1-tiny |
+#      | 78e1499d-cc9a-4453-9749-785ae7653010 | CentOS 7 R with Intel compilers | Jetstream - TACC               | m1-tiny |
