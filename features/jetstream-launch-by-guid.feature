@@ -5,7 +5,7 @@ Feature: Launch all featured images
   @persist_browser
   Scenario: Log into atmosphere
     Given a browser
-    When I login to Jetstream
+    When I login to Atmosphere
 
   @persist_browser
   Scenario: Create project
@@ -42,9 +42,9 @@ Feature: Launch all featured images
 
     Examples: Selected images
       | image-guid                           | image-name                     | provider                       | size    |
-      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - Indiana University | m1-tiny |
-      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - TACC               | m1-tiny |
-      | 4301b282-3726-4526-897d-9c9da2fe3057 | CentOS 6 (6.8) Development GUI | Jetstream - Indiana University | m1-tiny |
-      | 4301b282-3726-4526-897d-9c9da2fe3057 | CentOS 6 (6.8) Development GUI | Jetstream - TACC               | m1-tiny |
-#      | 78e1499d-cc9a-4453-9749-785ae7653010 | CentOS 7 R with Intel compilers | Jetstream - Indiana University | m1-tiny |
-#      | 78e1499d-cc9a-4453-9749-785ae7653010 | CentOS 7 R with Intel compilers | Jetstream - TACC               | m1-tiny |
+      | 3c3db94e-377b-4583-83d7-082d1024d74a | Ubuntu 14.04.3 Development GUI | Jetstream - Indiana University | m1-tiny |
+      | 3c3db94e-377b-4583-83d7-082d1024d74a | Ubuntu 14.04.3 Development GUI | Jetstream - TACC               | m1-tiny |
+      | 213c919b-5f96-4130-8b18-d9e9b43747a7 | CentOS 6 (6.8) Development GUI | Jetstream - Indiana University | m1-tiny |
+      | 213c919b-5f96-4130-8b18-d9e9b43747a7 | CentOS 6 (6.8) Development GUI | Jetstream - TACC               | m1-tiny |
+      | 7da93a12-ee49-4f93-8660-bbe200e094ca | CentOS 7 R with Intel compilers | Jetstream - Indiana University | m1-small |
+      | 7da93a12-ee49-4f93-8660-bbe200e094ca | CentOS 7 R with Intel compilers | Jetstream - TACC               | m1-small |
