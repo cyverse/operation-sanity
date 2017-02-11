@@ -32,8 +32,10 @@ This repo provides tests for:
 The test suite looks for three environment variables which tell it how to log into Atmosphere. The URL can be any installation of Atmosphere.
 
 You can persistently store the username and URL in your ~/.bash_profile (OS X) or ~/.bashrc (Linux):
-`export SANITYUSER=myAtmoUsername`  
-`export SANITYURL="https://atmo.cyverse.org"`  
+```
+export SANITYUSER=myAtmoUsername
+export SANITYURL="https://atmo.cyverse.org"
+```
 
 The first time you run the test suite, you'll need to populate the environment with `source ~/.bash_profile` (OS X) or `source ~/.bashrc` (Linux). (In the future, new terminal windows will have the environment populated automatically.)
 
