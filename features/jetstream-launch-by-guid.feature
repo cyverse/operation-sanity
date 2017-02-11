@@ -37,14 +37,20 @@ Feature: Launch all featured images
     And I press "Launch Instance"
     And I wait for 3 seconds
     And I double-check that I press "Launch Instance"
-    And I wait for 10 seconds
+    And I wait for 2 seconds
     Then I should see "Build" within 60 seconds
 
     Examples: Selected images
-      | image-guid                           | image-name                     | provider                       | size    |
-      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - Indiana University | m1.tiny |
-      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - TACC               | m1.tiny |
-      | 213c919b-5f96-4130-8b18-d9e9b43747a7 | CentOS 6 (6.8) Development GUI | Jetstream - Indiana University | m1.tiny |
-      | 213c919b-5f96-4130-8b18-d9e9b43747a7 | CentOS 6 (6.8) Development GUI | Jetstream - TACC               | m1.tiny |
-      #WRONG uuids -- fixme: | 7da93a12-ee49-4f93-8660-bbe200e094ca | CentOS 7 R with Intel compilers | Jetstream - Indiana University | m1.small |
-      #WRONG uuids -- fixme: | 7da93a12-ee49-4f93-8660-bbe200e094ca | CentOS 7 R with Intel compilers | Jetstream - TACC               | m1.small |
+      | image-guid                           | image-name                     | provider                       | size      |
+      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - Indiana University | m1.small  |
+      | 30f31162-2a7a-4ac5-be1a-45c7e579a04b | Ubuntu 14.04.3 Development GUI | Jetstream - TACC               | m1.small  |
+      | 4c25454d-8716-4cd5-841d-d00981536170 | Centos 7 (7.2) Development GUI | Jetstream - Indiana University | m1.small  |
+      | 4c25454d-8716-4cd5-841d-d00981536170 | Centos 7 (7.2) Development GUI | Jetstream - TACC               | m1.small  |
+      | 66322719-5bfa-4646-93c6-0132e9a958e5 | R with Intel compilers         | Jetstream - Indiana University | m1.small  |
+      | 66322719-5bfa-4646-93c6-0132e9a958e5 | R with Intel compilers         | Jetstream - TACC               | m1.small  |
+      | 798830e0-9053-4700-a3bd-4acda9935cc2 | CentOS 6 (6.8) Development GUI | Jetstream - Indiana University | m1.small  |
+      | 798830e0-9053-4700-a3bd-4acda9935cc2 | CentOS 6 (6.8) Development GUI | Jetstream - TACC               | m1.small  |
+      | 906e09cf-2827-49c5-82fd-ea74aa527e1d | BioLinux 8                     | Jetstream - Indiana University | m1.small  |
+      | 906e09cf-2827-49c5-82fd-ea74aa527e1d | BioLinux 8                     | Jetstream - TACC               | m1.small  |
+      | f9dd55f2-c25b-4dcb-b95e-40d194965c78 | MATLAB (CentOS 6)              | Jetstream - Indiana University | m1.medium |
+      | f9dd55f2-c25b-4dcb-b95e-40d194965c78 | MATLAB (CentOS 6)              | Jetstream - TACC               | m1.medium |
