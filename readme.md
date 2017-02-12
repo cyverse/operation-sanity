@@ -17,8 +17,8 @@ This repo provides tests for:
 ## How to run:
 
 ### Installation:
-1. You have a choice of using Firefox or Chromium, and your chosen browser must be installed on the same system you're running Operation Sanity from. If using Firefox and the tests don't run, you may need to downgrade to a version of Firefox supported by Selenium. As of September 1 2016, Firefox 48 works with Linux, but Firefox 46 is required for OS X. You can find older versions of Firefox at https://ftp.mozilla.org/pub/firefox/releases/ 
-  * For _Firefox_, consider disabling auto-updates, via [Preferences > Advanced > Update](https://support.mozilla.org/t5/Protect-your-privacy/How-to-stop-Firefox-from-making-automatic-connections/ta-p/1748#w_auto-update-checking) (not ideal, but if you do **not** do this - Firefox will updated to the latest version).
+1. You have a choice of using Firefox or Chromium, and your chosen browser must be installed on the same system you're running Operation Sanity from. If using Firefox and the tests don't run, you may need to downgrade to a version of Firefox supported by Selenium. As of September 1 2016, [Firefox 48](https://support.mozilla.org/t5/Install-and-Update/Install-an-older-version-of-Firefox/ta-p/1564#firefox:linux:fx48&mobile:android:m50&ios:web:&firefox-os:mac:fxos2.0&thunderbird:mac:tb45) works with Linux, but [Firefox 46](https://support.mozilla.org/t5/Install-and-Update/Install-an-older-version-of-Firefox/ta-p/1564#firefox:mac:fx47&mobile:android:m50&ios:web:&firefox-os:mac:fxos2.0&thunderbird:mac:tb45) is required for OS X. You can find older versions of Firefox at https://ftp.mozilla.org/pub/firefox/releases/ 
+  * For _Firefox_, consider disabling auto-updates, via [Preferences > Advanced > Update](https://support.mozilla.org/t5/Manage-preferences-and-add-ons/Advanced-panel-Accessibility-browsing-network-updates-and-other/ta-p/3333#w_update-tab) (not ideal, but if you do **not** do this - Firefox will updated to the latest version).
 1. Clone this repo
 1. Go to root of the project
 1. Create a virtual env
