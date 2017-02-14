@@ -30,30 +30,34 @@ Feature: Launch all featured images
     And I should see "Launch an Instance / Basic Options" within 10 seconds
     And I should see "alloted GBs of Memory" within 10 seconds
     When I choose option "<provider>" from dropdown with label "Provider"
+    And I choose option "<size>" from dropdown with label "Instance Size"
     And I choose option "BDD-01" from dropdown with label "Project"
       # This button sometimes gives trouble
     And I press "Launch Instance"
     And I wait for 3 seconds
     And I double-check that I press "Launch Instance"
-    And I wait for 10 seconds
+    And I wait for 2 seconds
     Then I should see "Build" within 60 seconds
 
     Examples: Selected images
-      | image-guid                           | image-name                     | provider                       |
-      | c3ff7e02-98d1-43c9-b84f-9f7cd79bec4d | Ubuntu 12.04 Unity GUI v1      | iPlant Cloud - Tucson          |
-      | d559c236-53ef-437a-999e-02ae16c4b5f0 | Ubuntu 14.04.2 XFCE Base       | iPlant Cloud - Tucson          |
-      | 524bd34b-5579-4f7e-958b-172ff6c403db | CyVerse CentOS 6.8 GUI Base    | iPlant Cloud - Tucson          |
-      | 5de53056-9448-4519-b9b7-74dde60b9905 | Ubuntu 14.04 with Docker 1.7.x | iPlant Cloud - Tucson          |
-      | 7a7f187f-a5dc-4c23-8197-ed3f114a1a2c | functional genomics_v1.0       | iPlant Cloud - Tucson          |
+      | image-guid                           | image-name                     | provider              | size                      |
+      | c3ff7e02-98d1-43c9-b84f-9f7cd79bec4d | Ubuntu 12.04 Unity GUI v1      | iPlant Cloud - Tucson | tiny1 (CPU: 1, Mem: 4 GB) |
+      | d559c236-53ef-437a-999e-02ae16c4b5f0 | Ubuntu 14.04.2 XFCE Base       | iPlant Cloud - Tucson | tiny1 (CPU: 1, Mem: 4 GB) |
+      | 524bd34b-5579-4f7e-958b-172ff6c403db | CyVerse CentOS 6.8 GUI Base    | iPlant Cloud - Tucson | tiny1 (CPU: 1, Mem: 4 GB) |
+      | 5de53056-9448-4519-b9b7-74dde60b9905 | Ubuntu 14.04 with Docker 1.7.x | iPlant Cloud - Tucson | tiny1 (CPU: 1, Mem: 4 GB) |
+      | 7a7f187f-a5dc-4c23-8197-ed3f114a1a2c | functional genomics_v1.0       | iPlant Cloud - Tucson | tiny1 (CPU: 1, Mem: 4 GB) |
+      | 538537d7-b243-463c-b156-86b9e965bb88 | Software Carpentry 06-07-2016  | iPlant Cloud - Tucson | tiny1 (CPU: 1, Mem: 4 GB) |
+      # Note "Ubuntu 12.04 Unity GUI v1" does not exist on Austin
 
-      | c3ff7e02-98d1-43c9-b84f-9f7cd79bec4d | Ubuntu 12.04 Unity GUI v1      | iPlant Cloud - Austin           |
-      | d559c236-53ef-437a-999e-02ae16c4b5f0 | Ubuntu 14.04.2 XFCE Base       | iPlant Cloud - Austin           |
-      | 524bd34b-5579-4f7e-958b-172ff6c403db | CyVerse CentOS 6.8 GUI Base    | iPlant Cloud - Austin           |
-      | 5de53056-9448-4519-b9b7-74dde60b9905 | Ubuntu 14.04 with Docker 1.7.x | iPlant Cloud - Austin           |
-      | 7a7f187f-a5dc-4c23-8197-ed3f114a1a2c | functional genomics_v1.0       | iPlant Cloud - Austin           |
+#      | d559c236-53ef-437a-999e-02ae16c4b5f0 | Ubuntu 14.04.2 XFCE Base       | iPlant Cloud - Austin | tiny (CPU: 1, Mem: 4 GB) |
+#      | 524bd34b-5579-4f7e-958b-172ff6c403db | CyVerse CentOS 6.8 GUI Base    | iPlant Cloud - Austin | tiny (CPU: 1, Mem: 4 GB) |
+#      | 5de53056-9448-4519-b9b7-74dde60b9905 | Ubuntu 14.04 with Docker 1.7.x | iPlant Cloud - Austin | tiny (CPU: 1, Mem: 4 GB) |
+#      | 7a7f187f-a5dc-4c23-8197-ed3f114a1a2c | functional genomics_v1.0       | iPlant Cloud - Austin | tiny (CPU: 1, Mem: 4 GB) |
+#      | 538537d7-b243-463c-b156-86b9e965bb88 | Software Carpentry 06-07-2016  | iPlant Cloud - Austin | tiny (CPU: 1, Mem: 4 GB) |
 
-      | c3ff7e02-98d1-43c9-b84f-9f7cd79bec4d | Ubuntu 12.04 Unity GUI v1      | iPlant Workshop Cloud - Tucson |
-      | d559c236-53ef-437a-999e-02ae16c4b5f0 | Ubuntu 14.04.2 XFCE Base       | iPlant Workshop Cloud - Tucson |
-      | 524bd34b-5579-4f7e-958b-172ff6c403db | CyVerse CentOS 6.8 GUI Base    | iPlant Workshop Cloud - Tucson |
-      | 5de53056-9448-4519-b9b7-74dde60b9905 | Ubuntu 14.04 with Docker 1.7.x | iPlant Workshop Cloud - Tucson |
-      | 7a7f187f-a5dc-4c23-8197-ed3f114a1a2c | functional genomics_v1.0       | iPlant Workshop Cloud - Tucson |
+#      | c3ff7e02-98d1-43c9-b84f-9f7cd79bec4d | Ubuntu 12.04 Unity GUI v1      | iPlant Workshop Cloud - Tucson | small2 (CPU: 2, Mem: 16 GB) |
+#      | d559c236-53ef-437a-999e-02ae16c4b5f0 | Ubuntu 14.04.2 XFCE Base       | iPlant Workshop Cloud - Tucson | small2 (CPU: 2, Mem: 16 GB) |
+#      | 524bd34b-5579-4f7e-958b-172ff6c403db | CyVerse CentOS 6.8 GUI Base    | iPlant Workshop Cloud - Tucson | small2 (CPU: 2, Mem: 16 GB) |
+#      | 5de53056-9448-4519-b9b7-74dde60b9905 | Ubuntu 14.04 with Docker 1.7.x | iPlant Workshop Cloud - Tucson | small2 (CPU: 2, Mem: 16 GB) |
+#      | 7a7f187f-a5dc-4c23-8197-ed3f114a1a2c | functional genomics_v1.0       | iPlant Workshop Cloud - Tucson | small2 (CPU: 2, Mem: 16 GB) |
+#      | 538537d7-b243-463c-b156-86b9e965bb88 | Software Carpentry 06-07-2016  | iPlant Workshop Cloud - Tucson | small2 (CPU: 2, Mem: 16 GB) |
