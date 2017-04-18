@@ -27,6 +27,24 @@ This repo provides tests for:
 * `source env/bin/activate`
 * `pip install -r requirements.txt`
 
+#### Headless Installation on Ubuntu
+1. Include google-chrome in your apt repo
+```bash
+wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
+sudo apt-get update
+apt-get install google-chrome-unstable
+```
+2. Download chromedriver
+```bash
+# platform options: linux32, linux64, mac64, win32
+PLATFORM=linux64
+VERSION=$(curl http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+wget -O chromedriver.zip http://chromedriver.storage.googleapis.com/$VERSION/chromedriver_$PLATFORM.zip
+unzip chromedriver.zip
+mv chromedriver /usr/bin/
+```
+
 ### Set Up Environment Variables
 
 #### Initial Setup
