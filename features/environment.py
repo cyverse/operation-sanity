@@ -6,14 +6,39 @@ except ImportError:
     from urllib.parse import urlparse, urlunsplit
 
 from behaving import environment as benv
+from selenium.webdriver.chrome.options import Options
+
+
+# Flip this value to 'True' to enable a debugger on step-failure.
+BEHAVE_DEBUG_ON_ERROR = False
+
 
 def before_all(context):
     benv.before_all(context)
     context.default_browser = os.environ.get('SANITYBROWSER', '')
+    if context.default_browser.lower() == 'chrome_headless':
+        context.default_browser = 'chrome'
+        options = Options()
+        # NOTE: Required until 'google-chrome-beta' and/or 'google-chrome-stable' are >59
+        options.binary_location = '/usr/bin/google-chrome-unstable'
+        options.add_argument('headless')
+        context.browser_args = {
+            'options': options,
+        }
     context.base_url = get_base_url(os.environ['SANITYURL'])
 
 def after_all(context):
     benv.after_all(context)
+
+
+def after_step(context, step):
+    """
+    https://pythonhosted.org/behave/tutorial.html#debug-on-error-in-case-of-step-failures
+    """
+    if BEHAVE_DEBUG_ON_ERROR and step.status == "failed":
+        # -- ENTER DEBUGGER: Zoom in on failure location.
+        import ipdb
+        ipdb.post_mortem(step.exc_traceback)
 
 
 def before_feature(context, feature):
