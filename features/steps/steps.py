@@ -38,6 +38,38 @@ def skip_if_see_instance(context, name, provider):
         context.scenario.skip('An instance with name "{}" and provider "{}" already exists'.format(name, provider))
 
 
+@step(u'I should skip this scenario if I do not see an instance with name "{name}" and provider "{provider}"')
+def skip_if_no_instance(context, name, provider):
+    xpath = "//tr[contains(td[2], '{}') and contains(td[7], '{}')]".format(name, provider)
+    if not context.browser.is_element_present_by_xpath(xpath):
+        context.scenario.skip('An instance with name "{}" and provider "{}" is not visible'.format(name, provider))
+
+
+@step(u'I press the checkbox for name "{name}" and provider "{provider}"')
+def press_checkbox_for_instance(context, name, provider):
+    xpath = "//tr[contains(td[2], '{}') and contains(td[7], '{}')]".format(name, provider)
+    assert context.browser.is_element_present_by_xpath(xpath, wait_time=20), u'No such instance'
+    xpath_with_checkbox = "{}/td[1]/div[contains(@class, 'resource-checkbox')]".format(xpath)
+    i_press_xpath(context, xpath_with_checkbox)
+
+
+@step(u'I press the delete button')
+def delete_instance(context):
+    xpath_delete = "//button[contains(@class, 'btn')]/i[contains(@class, 'glyphicon glyphicon-remove')]"
+    i_press_xpath(context, xpath_delete)
+
+
+@step(u'I wait for instance with name "{name}" and provider "{provider}" to start deleting')
+def wait_for_instance_to_finish_building(context, name, provider, timeout=60):
+    xpath = "//tr[contains(td[2], '{}') and contains(td[7], '{}')]".format(name, provider)
+    assert context.browser.is_element_present_by_xpath(xpath, wait_time=20), u'No such instance'
+    deleting_activity = 'deleting'
+    xpath_with_activity = "//tr[contains(td[2], '{}') and contains(td[7], '{}') and contains(td[4], '{}')]".format(name,
+                                                                                                                   provider,
+                                                                                                                   deleting_activity)
+    assert context.browser.is_element_present_by_xpath(xpath_with_activity,
+                                                       wait_time=timeout), u'Instance is not deleting'
+
 
 @step(u'I type slowly "{value}" to "{index}" index of class "{klass}"')
 def i_type_to_index_of_class(context, klass, value, index):
