@@ -33,7 +33,7 @@ This repo provides tests for:
 wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list'
 sudo apt-get update
-apt-get install google-chrome-unstable
+apt-get install google-chrome-unstable xvfb
 ```
 2. Download chromedriver
 ```bash
@@ -43,6 +43,12 @@ VERSION=$(curl http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
 wget -O chromedriver.zip http://chromedriver.storage.googleapis.com/$VERSION/chromedriver_$PLATFORM.zip
 unzip chromedriver.zip
 mv chromedriver /usr/bin/
+```
+3. Run Xvfb ahead of tests
+```bash
+export DISPLAY=:1
+Xvfb $DISPLAY -ac -screen 0 1280x1024x8 &
+ps aux | grep Xvfb  # To verify it is running
 ```
 
 ### Set Up Environment Variables
