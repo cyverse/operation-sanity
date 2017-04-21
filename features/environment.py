@@ -11,7 +11,7 @@ from selenium.webdriver.chrome.options import Options
 
 # Flip this value to 'True' to enable a debugger on step-failure.
 BEHAVE_DEBUG_ON_ERROR = False
-WORKSPACE_ROOT = os.path.abspath(os.path.dirname(__file__)+"/../..")
+WORKSPACE_ROOT = os.path.abspath(os.path.dirname(__file__)+"/..")
 SCREENSHOT_DIR = os.path.join(WORKSPACE_ROOT, 'reports/screenshots')
 
 def before_all(context):
