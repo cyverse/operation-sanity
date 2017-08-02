@@ -75,6 +75,7 @@ If using Chromium, set the SANITYBROWSER environment variable. (Firefox will be 
 
 `export SANITYBROWSER=chrome`
 
+See `run_behave.sh` shell script for a working example, including reading the password safely.
 
 ### Run tests:
 The test suite has been configured to be run using:  
@@ -84,8 +85,10 @@ where 2 is the max number of processes you want run.
 Alternatively, the script can be used as a guidebook for running each step of the test suite individually. Open run.bash in a text editor and manually copy each step into the command line. You'll have to manually change the `$PROCESSES` variable to the number of processes you want to run, usually 2-4.
 
 ### Reference:
-To launch a bunch of instances specified by GUID and name:
-`behave features/launch-by-guid.feature`
+To launch a bunch of instances specified by name, on specified providers:
+`behave --tags @persist_browser,@jetstream-test-cloud features/unified_launch.feature`
+
+(See `unified_launch.feature` for available tags. `@persist_browser` is required.)
 
 To run a single feature:  
 `behave features/launch.feature`
