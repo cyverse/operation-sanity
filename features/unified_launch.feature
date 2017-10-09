@@ -1,4 +1,4 @@
-Feature: Delete specified running instances
+Feature: Launch instances
 
   @persist_browser
   Scenario: Log into Atmosphere
@@ -6,21 +6,36 @@ Feature: Delete specified running instances
     When I login to Atmosphere
 
   @persist_browser
-  Scenario Outline: Delete instances
+  Scenario Outline: Launch instances
     When we skip the scenario outline example based on the tags
     Given a browser
+    Then I create project "<project>" if necessary
+    And I migrate resources to project "<project>" if necessary
     When I go to "/application/projects"
     Then I should see an element with xpath "//h2[contains(string(), '<project>')]" within 10 seconds
     When I press the element with xpath "//h2[contains(string(), '<project>')]"
     Then I should see an element with xpath "//h1[contains(string(), '<project>')]" within 10 seconds
-    And I wait for 2 seconds
-    And I should skip this scenario if I do not see an instance with name "<instance-name>" and provider "<provider>"
-    When I press the checkbox for name "<instance-name>" and provider "<provider>"
-    And I press the delete button
-    Then I should see an element with xpath "//h1[contains(string(), 'Delete Instance')]" within 2 seconds
-    And I should see "The following instance will be shut down and all data will be permanently lost"
-    When I press "Yes, delete this instance"
-    Then I wait for instance with name "<instance-name>" and provider "<provider>" to start deleting
+    And I should skip this scenario if I see an instance with "<instance-name>" and provider "<provider>"
+    When I go to "/application/images"
+    And I migrate resources to project "<project>" if necessary
+    Then I should see "Image Search" within 60 seconds
+    And I should see an element with the css selector ".form-control" within 10 seconds
+    When I enter "<image-search>" to "0" index of class "form-control"
+    Then I should see "<image-name>" within 120 seconds
+    When I press the element with xpath "//h2[contains(string(), '<image-name>')]"
+    Then I should see an element with the css selector ".launch-button" within 10 seconds
+    And element with xpath "//button[contains(@class, 'launch-button')]" should be enabled within 5 seconds
+    When I press the element with xpath "//button[contains(@class, 'launch-button')]"
+    And I should see "Launch an Instance / Basic Options" within 60 seconds
+    And I should see "alloted GBs of Memory" within 10 seconds
+    When I choose option "<provider>" from dropdown with label "Provider"
+    And I choose option "<size>" from dropdown with label "Instance Size"
+    And I choose option "<project>" from dropdown with label "Project"
+    And I fill in instance name with "<instance-name>"
+    And I press "Launch Instance"
+    Then I should see "LAUNCHING" within 5 seconds
+    And I should not see "LAUNCHING" within 60 seconds
+    And I should see an instance with "<instance-name>" and provider "<provider>" within 10 seconds
 
     Examples: "Marana Cloud", @cyverse, @cyverse-marana
       | project | image-search              | image-name                     | instance-name           | provider               | size  |
@@ -71,3 +86,4 @@ Feature: Delete specified running instances
       | BDD-05  | centos 6 development gui  | CentOS 6 (6.9) Development GUI | centos_6_dev_gui           | Jetstream - TACC | m1.small  |
       | BDD-05  | biolinux                  | BioLinux 8                     | biolinux_8                 | Jetstream - TACC | m1.small  |
       | BDD-05  | matlab centos             | MATLAB (Based on CentOS 6)     | matlab_centos_6            | Jetstream - TACC | m1.medium |
+

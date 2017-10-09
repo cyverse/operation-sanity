@@ -1,6 +1,5 @@
+from behave import *
 from behaving.mail.steps import *
-from behaving.personas.persona import persona_vars
-from behaving.personas.steps import *
 from behaving.web.steps import *
 from behaving.web.steps.basic import _retry
 
@@ -23,12 +22,29 @@ def wait_for_instance_to_finish_building(context, name, provider, timeout=60):
     xpath_no_status = "//tr[contains(td[2], '{}') and contains(td[7], '{}')]".format(name, provider)
     assert context.browser.is_element_present_by_xpath(xpath_no_status, wait_time=20), u'No such instance'
     building_status = 'build'
-    xpath_with_status = "//tr[contains(td[2], '{}') and contains(td[7], '{}') and contains(td[3], '{}')]".format(name,
-                                                                                                                 provider,
-                                                                                                                 building_status)
-    assert context.browser.is_element_present_by_xpath(xpath_with_status), u'Instance is not building'
+    xpath_with_status = "//tr[contains(td[2], '{}') and contains(td[7], '{}') and contains(td[3], '{}')]".format(
+        name,
+        provider,
+        building_status
+    )
+    # assert context.browser.is_element_present_by_xpath(xpath_with_status), u'Instance is not building'
     assert context.browser.is_element_not_present_by_xpath(xpath_with_status,
-                                                           wait_time=timeout), u'Instance has not finished building'
+                                                           wait_time=timeout), u'Instance is still building'
+    # assert context.browser.is_element_not_present_by_xpath(xpath_with_status,
+    #                                                        wait_time=timeout), u'Instance has not finished building'
+    # xpath_with_progress = "//tr[contains(td[2], '{}') and contains(td[7], '{}')]/td//div[class='progress']/"
+    # "div[contains(@class, 'progress-bar progress-bar-success progress-bar-striped active')]".format(
+    #     name, provider)
+    # assert context.browser.is_element_present_by_xpath(xpath_with_progress,
+    #                                                    wait_time=timeout), u'Instance has not finished building'
+    print('finished here')
+
+
+@step(u'I should see an instance with "{name}" and provider "{provider}"')
+@step(u'I should see an instance with "{name}" and provider "{provider}" within {timeout:d} seconds')
+def should_see_instance(context, name, provider, timeout=3):
+    xpath = "//tr[contains(td[2], '{}') and contains(td[7], '{}')]".format(name, provider)
+    assert context.browser.is_element_present_by_xpath(xpath, wait_time=timeout), u'No such instance'
 
 
 @step(u'I should skip this scenario if I see an instance with "{name}" and provider "{provider}"')
@@ -55,7 +71,7 @@ def press_checkbox_for_instance(context, name, provider):
 
 @step(u'I press the delete button')
 def delete_instance(context):
-    xpath_delete = "//button[contains(@class, 'btn')]/i[contains(@class, 'glyphicon glyphicon-remove')]"
+    xpath_delete = "//button[contains(@type, 'button')]//i[contains(@class, 'glyphicon glyphicon-remove')]"
     i_press_xpath(context, xpath_delete)
 
 
@@ -71,17 +87,36 @@ def wait_for_instance_to_finish_building(context, name, provider, timeout=60):
                                                        wait_time=timeout), u'Instance is not deleting'
 
 
+@step(u'I enter "{value}" to "{index}" index of class "{klass}"')
+def i_enter_to_index_of_class(context, klass, value, index):
+    name = "temp_form_name" + str(index)
+    assert context.browser.evaluate_script(
+        "document.getElementsByClassName('%s')[%s].name = '%s'" % (klass, index, name)), \
+        u'Element not found or could not set name'
+    for key in context.browser.type(name, value):
+        assert key
+
+
 @step(u'I type slowly "{value}" to "{index}" index of class "{klass}"')
 def i_type_to_index_of_class(context, klass, value, index):
     name = "temp_form_name" + str(index)
-    assert context.browser.evaluate_script("document.getElementsByClassName('%s')[%s].name = '%s'" % (klass, index, name)), \
+    assert context.browser.evaluate_script(
+        "document.getElementsByClassName('%s')[%s].name = '%s'" % (klass, index, name)), \
         u'Element not found or could not set name'
     for key in context.browser.type(name, value, slowly=True):
         assert key
 
+
+@step(u'I fill in instance name with "{value}"')
+@persona_vars
+def i_fill_in_instance_name(context, value):
+    field = context.browser.find_by_id('instanceName').first
+    field.value = value
+
+
 @step(u'I ask for "{resources}" resources for "{reason}" reason')
 def i_request_resources(context, resources, reason):
-    klass = "form-control" # this is the class for both of the textarea elements
+    klass = "form-control"  # this is the class for both of the textarea elements
 
     # fill in resources
     name1 = "resource-box"
@@ -97,23 +132,27 @@ def i_request_resources(context, resources, reason):
     for key in context.browser.type(name2, reason, slowly=True):
         assert key
 
+
 @step(u'I press span "{span}"')
 def i_press_span(context, span):
-    element = context.browser.find_by_xpath( "//*[@class='section-link']//span[contains(string(), '%s')]" % (span))
+    element = context.browser.find_by_xpath("//*[@class='section-link']//span[contains(string(), '%s')]" % (span))
     assert element, u'Element not found'
     element.first.click()
+
 
 @step(u'I press Options span')
 def i_press_options(context):
-    element = context.browser.find_by_xpath( "//*//span[contains(string(), 'Options')]")
+    element = context.browser.find_by_xpath("//*//span[contains(string(), 'Options')]")
     assert element, u'Element not found'
     element.first.click()
 
+
 @step(u'I press Delete span')
 def i_press_delete(context):
-    element = context.browser.find_by_xpath( "//*[@class='section-link danger']")
+    element = context.browser.find_by_xpath("//*[@class='section-link danger']")
     assert element, u'Element not found'
     element.first.click()
+
 
 @step(u'I should see and press "{name}" within {timeout:d} seconds')
 def i_should_see_and_press_within_timeout(context, name, timeout):
@@ -129,6 +168,7 @@ def i_should_see_and_press_within_timeout(context, name, timeout):
     element = context.browser.find_by_xpath(element_xpath)
     element.first.click()
 
+
 @step(u'I double-check that I press "{name}"')
 def i_should_see_and_press_within_timeout(context, name):
     element = context.browser.find_by_xpath(
@@ -142,8 +182,17 @@ def i_should_see_and_press_within_timeout(context, name):
     if element:
         element.first.click()
 
+
 @step(u'I login to Atmosphere')
 def i_login_to_atmo(context):
+    if 'jetstream' in context.base_url:
+        context.execute_steps(u'''When I login to Jetstream Atmosphere''')
+    else:
+        context.execute_steps(u'''When I login to CyVerse Atmosphere''')
+
+
+@step(u'I login to CyVerse Atmosphere')
+def i_login_to_cyverse_atmo(context):
     # visit URL
     context.browser.visit(os.environ['SANITYURL'])
     # Only press login if we're not using a backdoor
@@ -178,8 +227,8 @@ def i_login_to_atmo(context):
     element.first.click()
 
 
-@step(u'I login to Jetstream')
-def i_login_to_jetstream(context):
+@step(u'I login to Jetstream Atmosphere')
+def i_login_to_jetstream_atmo(context):
     # visit URL
     context.browser.visit(os.environ['SANITYURL'])
     # Only press login if we're not using a backdoor
@@ -204,6 +253,7 @@ def i_login_to_jetstream(context):
     # press: Sign In
     context.execute_steps(u'''When I press "Sign In"''')
 
+
 @step(u'I choose "{value}" from Project dropdown')
 def i_choose_in_project_dropdown(context, value):
     name = "bdd-project"
@@ -223,6 +273,7 @@ def i_choose_in_provider_dropdown(context, option, label):
     option = elem[0]
     option._element.click()
 
+
 @step(u'I enter the Web Shell')
 def i_enter_web_shell(context):
     name = "Open Web Shell"
@@ -232,9 +283,10 @@ def i_enter_web_shell(context):
     assert element, u'Element not found'
     element.first.click()
 
+
 @step(u'I scroll down {pixels} pixels')
 def i_scroll_down(context, pixels):
-    #while not find_visible_by_css(context, (("a[href*='%s']") % ID)):
+    # while not find_visible_by_css(context, (("a[href*='%s']") % ID)):
     #    context.browser.evaluate_script("window.scrollBy(0, 100)")
     context.browser.evaluate_script("window.scrollBy(0, %s);" % pixels)
 
@@ -256,7 +308,7 @@ def migrate_resources_if_necessary(context, project):
 # otherwise this function is about 10 lines
 @step(u'I create project "{project}" if necessary')
 def i_create_project(context, project):
-    #see and press "Projects"
+    # see and press "Projects"
     name = 'Projects'
     assert context.browser.is_text_present(name, wait_time=10), u'Text not found'
     element = context.browser.find_by_xpath(
@@ -273,20 +325,20 @@ def i_create_project(context, project):
     if not context.browser.is_element_present_by_xpath("//h2[contains(., '%s')]" % project):
         # Then I should see and press "Create New Project" within 10 seconds
         name = "Create New Project"
-        assert context.browser.is_text_present(name, wait_time=10), u'Text not found'
+        assert context.browser.is_text_present(name.upper(), wait_time=10), u'Text not found'
         element = context.browser.find_by_xpath(
             ("//*[@id='%(name)s']|"
-            "//*[@name='%(name)s']|"
-            "//button[contains(string(), '%(name)s')]|"
-            "//input[@type='button' and contains(string(), '%(name)s')]|"
-            "//input[@type='button' and contains(@value, '%(name)s')]|"
-            "//input[@type='submit' and contains(@value, '%(name)s')]|"
-            "//a[contains(string(), '%(name)s')]") % {'name': name})
+             "//*[@name='%(name)s']|"
+             "//button[contains(string(), '%(name)s')]|"
+             "//input[@type='button' and contains(string(), '%(name)s')]|"
+             "//input[@type='button' and contains(@value, '%(name)s')]|"
+             "//input[@type='submit' and contains(@value, '%(name)s')]|"
+             "//a[contains(string(), '%(name)s')]") % {'name': name})
         assert element, u'Element not found'
         element.first.click()
 
         # Then I should see "Project Name" within 10 seconds
-        name = "Create New Project"
+        name = "Create Project"
         assert context.browser.is_text_present(name, wait_time=10), u'Text not found'
 
         # And I type slowly "%s" to "0" index of class "form-control"
@@ -298,22 +350,21 @@ def i_create_project(context, project):
             assert key
 
         # And I type slowly "%s" to "1" index of class "form-control"
-        name = "temp_form_name_1"
-        assert context.browser.evaluate_script("document.getElementsByClassName('form-control')[1].name = '%s'" % (name)), \
-            u'Element not found or could not set name'
-        for key in context.browser.type(name, project, slowly=True):
+        element = context.browser.find_by_xpath("//div[@class='modal-body']//textarea[@name='project-description']")
+        assert element, u'Element not found'
+        for key in element.first.type(project, slowly=True):
             assert key
 
         # And I press "submitCreateProject"
         name = "submitCreateProject"
         element = context.browser.find_by_xpath(
             ("//*[@id='%(name)s']|"
-            "//*[@name='%(name)s']|"
-            "//button[contains(string(), '%(name)s')]|"
-            "//input[@type='button' and contains(string(), '%(name)s')]|"
-            "//input[@type='button' and contains(@value, '%(name)s')]|"
-            "//input[@type='submit' and contains(@value, '%(name)s')]|"
-            "//a[contains(string(), '%(name)s')]") % {'name': name})
+             "//*[@name='%(name)s']|"
+             "//button[contains(string(), '%(name)s')]|"
+             "//input[@type='button' and contains(string(), '%(name)s')]|"
+             "//input[@type='button' and contains(@value, '%(name)s')]|"
+             "//input[@type='submit' and contains(@value, '%(name)s')]|"
+             "//a[contains(string(), '%(name)s')]") % {'name': name})
         assert element, u'Element not found'
         element.first.click()
 
@@ -343,3 +394,21 @@ def is_enabled(context, xpath, timeout):
 
     check = lambda: element._element.is_enabled()
     assert _retry(check, timeout), u'Element is not enabled'
+
+
+@step("we skip the scenario outline example based on the tags")
+def step_impl(context):
+    """
+    :type context: behave.runner.Context
+    """
+    words_in_scenario_name = context.scenario.name.split()
+    scenario_tags = [word[1:] for word in words_in_scenario_name if word.startswith('@')]
+    chosen_runtime_tags = context.config.tags
+    if not chosen_runtime_tags.check(scenario_tags):
+        context.scenario.skip(
+            'Skipping scenario: {} - because scenario tags: "{}" do not intersect with runtime tags: "{}"'.format(
+                context.scenario.name,
+                scenario_tags,
+                chosen_runtime_tags
+            )
+        )

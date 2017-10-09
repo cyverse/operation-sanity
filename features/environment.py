@@ -1,5 +1,7 @@
 import os
 
+import time
+
 try:
     from urlparse import urlparse, urlunsplit
 except ImportError:
@@ -16,6 +18,7 @@ SCREENSHOT_DIR = os.path.join(WORKSPACE_ROOT, 'reports/screenshots')
 
 def before_all(context):
     benv.before_all(context)
+    context.screenshots_dir = os.environ.get('SANITYSCREENSHOTDIR')
     context.default_browser = os.environ.get('SANITYBROWSER', '')
     if context.default_browser.lower() == 'chrome_headless':
         context.default_browser = 'chrome'
@@ -64,6 +67,15 @@ def before_scenario(context, scenario):
 def after_scenario(context, scenario):
     if scenario.status == 'failed':
         print('Failed. Put a breakpoint here to inspect stuff')
+        if context.screenshots_dir and hasattr(context, 'browser'):
+            filename = scenario.feature.name + u'-' + \
+                       scenario.name + u'-' + \
+                       time.strftime("%Y-%m-%d-%H%M%S", time.gmtime(time.time()))
+            filename = os.path.join(context.screenshots_dir, filename)
+            try:
+                context.browser.screenshot(filename)
+            except:
+                pass
     if 'persist_browser' not in scenario.tags:
         benv.after_scenario(context, scenario)
 
