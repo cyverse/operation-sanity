@@ -9,12 +9,14 @@ except ImportError:
 
 from behaving import environment as benv
 from selenium.webdriver.chrome.options import Options
-
+from datetime import datetime
 
 # Flip this value to 'True' to enable a debugger on step-failure.
-BEHAVE_DEBUG_ON_ERROR = False
+BEHAVE_DEBUG_ON_ERROR = os.environ.get('SANITYDEBUG', False)
 WORKSPACE_ROOT = os.path.abspath(os.path.dirname(__file__)+"/..")
-SCREENSHOT_DIR = os.path.join(WORKSPACE_ROOT, 'reports/screenshots')
+default_screenshot_dir = os.path.join(WORKSPACE_ROOT, 'reports/screenshots')
+SCREENSHOT_DIR = os.environ['SANITYSCREENSHOTDIR'] if os.environ.get('SANITYSCREENSHOTDIR') \
+        else os.path.join(WORKSPACE_ROOT, 'reports/screenshots')
 
 def before_all(context):
     benv.before_all(context)
@@ -42,9 +44,10 @@ def after_step(context, step):
     if step.status == "failed":
         if not os.path.exists(SCREENSHOT_DIR):
             os.makedirs(SCREENSHOT_DIR)
-        sshot_prefix = "FailedStep:%s FailedMessage:%s ss_" %  (step.name, step.error_message)
+        now = datetime.now()
+        sshot_prefix = "%s-FailedStep:%s-FailedMessage:%s-ss.png" %  (now.strftime("%x_%X"), step.name, step.error_message)
         sshot_path = os.path.join(SCREENSHOT_DIR, sshot_prefix)
-        context.browser.screenshot(sshot_path)
+        context.browser.driver.get_screenshot_as_file(sshot_path)
         if BEHAVE_DEBUG_ON_ERROR:
             # -- ENTER DEBUGGER: Zoom in on failure location.
             import ipdb

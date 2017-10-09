@@ -10,6 +10,23 @@ from subprocess import (
 
 # CONSTANTS -- Update these values as more features, environments,
 # and/or browsers are added to Operation Sanity
+DESCRIPTION = """
+This script will help you configure and execute behave tests.
+
+The easiest way to run behave requires you to provide the <Server> and <Username> required to test.
+    ./run_behave.py https://path.to-your-server.com TEST-USERNAME
+
+The users password, in additional to any optional arguments that have not been specified,
+(`browser`, `environment`, and `feature`), will be shown to the user and require user input prior to running tests.
+
+
+To run tests without any user input required:
+    export SANITYPASS=...
+    # [For Jetstream]:
+    ./run_behave.py --browser chrome_headless --environment jetstream-indiana --feature unified_launch.feature https://use.jetstream-cloud.org TEST_USERNAME
+    # [For CyVerse]:
+    ./run_behave.py --browser chrome_headless --environment cyverse --feature unified_launch.feature https://atmo.cyverse.org TEST_USERNAME
+"""
 BROWSERS = ['chrome_headless', 'chrome', 'firefox']
 ENVIRONMENTS = [
     "cyverse",
@@ -26,31 +43,10 @@ FEATURES = [
 ]
 
 
-def select_from_choices(title, choice_list):
-    while True:
-        total = len(choice_list) - 1
-        for idx, choice in enumerate(choice_list):
-            print "%d: %s" % (idx, choice)
-        selection = raw_input(
-            "Select a choice for '%s' [0 - %d, q to quit]" % total)
-        try:
-            if 'q' in selection:
-                sys.exit(1)
-            selection = int(selection)
-        except ValueError:
-            print "Invalid Selection: '%s'" % selection
-            continue
-        if idx < 0 or idx >= len(choice_list):
-            continue
-        selected_item = choice_list[selection]
-        break
-    return selected_item
-
-
 def main():
     # Argparse
     parser = argparse.ArgumentParser(
-        description="Add a new cloud provider and adminstrator")
+        description=DESCRIPTION, formatter_class=argparse.RawDescriptionHelpFormatter)
 
     parser.add_argument(
         "server_url",
@@ -71,6 +67,9 @@ def main():
         "--screenshot-dir", default="/tmp",
         help="Screenshots stored here in the event of a test failure.")
     parser.add_argument(
+        "--debug", action='store_true',
+        help="Import ipdb and set debugger on a test failure.")
+    parser.add_argument(
         "--skip-checks", action='store_true',
         help="Skip pre-flight checks (Xvfb process running, etc.)")
     arguments = parser.parse_args()
@@ -83,7 +82,40 @@ def main():
     arguments = _request_user_input(arguments)
     if not arguments.skip_checks:
         _run_argument_validation(arguments)
-    return _run_behave_tests(arguments)
+    dict_args = vars(arguments)
+    return run_behave_tests(dict_args)
+
+
+def _run_preflight_tests():
+    xvfb_running = _is_process_running('Xvfb')
+    if not xvfb_running:
+        raise Exception(
+            "Runtime Error: Xvfb was not found running on this machine."
+            "Please start Xvfb or run with '--skip-checks' to continue.")
+    return True
+
+
+def _request_user_input(arguments):
+    if not getattr(arguments, 'browser'):
+        arguments.browser = _select_from_choices(
+            'Browser', BROWSERS)
+    if not getattr(arguments, 'feature'):
+        arguments.feature = _select_from_choices(
+            'Feature', FEATURES)
+
+    # Allows omission of 'features/'
+    if 'features/' not in arguments.feature:
+        arguments.feature = 'features/' + arguments.feature
+
+    if not getattr(arguments, 'environment'):
+        arguments.environment = _select_from_choices(
+            'Environment', ENVIRONMENTS)
+    if 'SANITYPASS' in os.environ:
+        arguments.password = os.environ['SANITYPASS']
+    else:
+        arguments.password = getpass.getpass(
+            "Password for user %s:" % arguments.username)
+    return arguments
 
 
 def _run_argument_validation(arguments):
@@ -110,13 +142,28 @@ def _run_argument_validation(arguments):
     return True
 
 
-def _run_preflight_tests():
-    xvfb_running = _is_process_running('Xvfb')
-    if not xvfb_running:
-        raise Exception(
-            "Runtime Error: Xvfb was not found running on this machine."
-            "Please start Xvfb or run with '--skip-checks' to continue.")
-    return True
+def run_behave_tests(dict_args):
+    script_environ = os.environ.copy()
+    script_environ['SANITYURL'] = dict_args["server_url"]
+    script_environ['SANITYBROWSER'] = dict_args["browser"]
+    script_environ['SANITYUSER'] = dict_args["username"]
+    script_environ['SANITYPASS'] = dict_args["password"]
+    if dict_args["debug"]:
+        script_environ['SANITYDEBUG'] = "True"
+    script_environ['SANITYSCREENSHOTDIR'] = dict_args["screenshot_dir"]
+
+    behave_test_command = [
+        'behave', '--tags',
+        "@persist_browser,@%s" % dict_args["environment"],
+        dict_args["feature"]
+    ]
+
+    print "Executing Command: %s" % " ".join(behave_test_command)
+    proc = Popen(behave_test_command, shell=True, env=script_environ)
+    returncode = proc.wait()
+    if returncode != 0:
+        print "Warning: Behave returned a non-zero exit status"
+        sys.exit(returncode)
 
 
 def _is_process_running(process_name):
@@ -139,49 +186,26 @@ def _is_process_running(process_name):
         return False
 
 
-def _request_user_input(arguments):
-    if not getattr(arguments, 'browser'):
-        arguments.browser = select_from_choices(
-            'Browser', BROWSERS)
-    if not getattr(arguments, 'feature'):
-        arguments.feature = select_from_choices(
-            'Feature', FEATURES)
-
-    # Allows omission of 'features/'
-    if 'features/' not in arguments.feature:
-        arguments.feature = 'features/' + arguments.feature
-
-    if not getattr(arguments, 'environment'):
-        arguments.environment = select_from_choices(
-            'Environment', ENVIRONMENTS)
-    if 'SANITYPASS' in os.environ:
-        arguments.password = os.environ['SANITYPASS']
-    else:
-        arguments.password = getpass.getpass(
-            "Password for user %s:" % arguments.username)
-    return arguments
-
-
-def _run_behave_tests(arguments):
-    script_environ = os.environ.copy()
-    script_environ['SANITYURL'] = arguments.server_url
-    script_environ['SANITYBROWSER'] = arguments.browser
-    script_environ['SANITYUSER'] = arguments.username
-    script_environ['SANITYPASS'] = arguments.password
-    script_environ['SANITYSCREENSHOTDIR'] = arguments.screenshot_dir
-
-    behave_test_command = [
-        'behave', '--tags',
-        "@persist_browser,@%s" % arguments.environment,
-        arguments.feature
-    ]
-
-    print "Executing Command: %s" % " ".join(behave_test_command)
-    proc = Popen(behave_test_command, shell=True, env=script_environ)
-    returncode = proc.wait()
-    if returncode != 0:
-        print "Warning: Behave returned a non-zero exit status"
-        sys.exit(returncode)
+def _select_from_choices(title, choice_list):
+    while True:
+        total = len(choice_list) - 1
+        for idx, choice in enumerate(choice_list):
+            print "%d: %s" % (idx, choice)
+        selection = raw_input(
+            "Select a choice for '%s' [0 - %d, q to quit]" % (title, total)
+        )
+        try:
+            if 'q' in selection:
+                sys.exit(1)
+            selection = int(selection)
+        except ValueError:
+            print "Invalid Selection for '%s': '%s'" % (title, selection)
+            continue
+        if idx < 0 or idx >= len(choice_list):
+            continue
+        selected_item = choice_list[selection]
+        break
+    return selected_item
 
 
 if __name__ == "__main__":
