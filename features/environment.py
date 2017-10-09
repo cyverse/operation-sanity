@@ -23,9 +23,9 @@ def before_all(context):
     if context.default_browser.lower() == 'chrome_headless':
         context.default_browser = 'chrome'
         options = Options()
-        # NOTE: Required until 'google-chrome-beta' and/or 'google-chrome-stable' are >59
-        options.binary_location = '/usr/bin/google-chrome-unstable'
+        options.binary_location = '/usr/bin/google-chrome'
         options.add_argument('headless')
+        options.add_argument('diable-gpu')
         context.browser_args = {
             'options': options,
         }
