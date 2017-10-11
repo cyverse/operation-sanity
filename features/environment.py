@@ -1,7 +1,7 @@
 import os
 
 import time
-
+import tempfile
 try:
     from urlparse import urlparse, urlunsplit
 except ImportError:
@@ -37,17 +37,42 @@ def after_all(context):
     benv.after_all(context)
 
 
+def create_scenario_screenshot(context, scenario):
+    # create_scenario_screenshot(context, scenario)
+    now = datetime.now()
+    prefix = "%s-%sScenario-%s-%s-" % (
+            now.strftime("%Y%m%d_%H%M"),
+            scenario.status.title(),
+            scenario.feature.name,
+            scenario.name)
+    try:
+        return _create_screenshot(context, prefix, ".png")
+    except:
+        pass
+    return
+
+def create_step_screenshot(context, step):
+    now = datetime.now()
+    prefix = "%s-%sStep-%s %s%s-" %  (
+            now.strftime("%Y%m%d_%H%M"),
+            step.status.title(), step.keyword, step.name,
+            "_ERROR: %s" % step.error_message if step.status == 'failed' else ""
+        )
+    return _create_screenshot(context, prefix, ".png")
+
+def _create_screenshot(context, prefix, suffix):
+    if not os.path.exists(SCREENSHOT_DIR):
+        os.makedirs(SCREENSHOT_DIR)
+    (fd, filename) = tempfile.mkstemp(prefix=prefix, suffix=suffix, dir=SCREENSHOT_DIR)
+    context.browser.driver.get_screenshot_as_file(filename)
+    return filename
+
 def after_step(context, step):
     """
     https://pythonhosted.org/behave/tutorial.html#debug-on-error-in-case-of-step-failures
     """
     if step.status == "failed":
-        if not os.path.exists(SCREENSHOT_DIR):
-            os.makedirs(SCREENSHOT_DIR)
-        now = datetime.now()
-        sshot_prefix = "%s-FailedStep:%s-FailedMessage:%s-ss.png" %  (now.strftime("%x_%X"), step.name, step.error_message)
-        sshot_path = os.path.join(SCREENSHOT_DIR, sshot_prefix)
-        context.browser.driver.get_screenshot_as_file(sshot_path)
+        create_step_screenshot(context, step)
         if BEHAVE_DEBUG_ON_ERROR:
             # -- ENTER DEBUGGER: Zoom in on failure location.
             import ipdb
@@ -69,16 +94,9 @@ def before_scenario(context, scenario):
 
 def after_scenario(context, scenario):
     if scenario.status == 'failed':
-        print('Failed. Put a breakpoint here to inspect stuff')
+        print('Scenario %s Failed. Put a breakpoint here to inspect stuff' % scenario.name)
         if context.screenshots_dir and hasattr(context, 'browser'):
-            filename = scenario.feature.name + u'-' + \
-                       scenario.name + u'-' + \
-                       time.strftime("%Y-%m-%d-%H%M%S", time.gmtime(time.time()))
-            filename = os.path.join(context.screenshots_dir, filename)
-            try:
-                context.browser.screenshot(filename)
-            except:
-                pass
+            create_scenario_screenshot(context, scenario)
     if 'persist_browser' not in scenario.tags:
         benv.after_scenario(context, scenario)
 
