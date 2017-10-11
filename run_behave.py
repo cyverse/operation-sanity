@@ -71,14 +71,14 @@ def main():
         help="Import ipdb and set debugger on a test failure.")
     parser.add_argument(
         "--skip-checks", action='store_true',
-        help="Skip pre-flight checks (Xvfb process running, etc.)")
+        help="Skip pre-flight checks (Behave exists, Xvfb process running, etc.)")
     arguments = parser.parse_args()
     # Pre-flight checks (validation, system tests)
     if '://' not in arguments.server_url:
         raise Exception("Error: Missing 'scheme://' prefix for server_url: %s"
                         % arguments.server_url)
     if not arguments.skip_checks:
-        _run_preflight_tests()
+        _run_preflight_checks()
     arguments = _request_user_input(arguments)
     if not arguments.skip_checks:
         _run_argument_validation(arguments)
@@ -86,7 +86,14 @@ def main():
     return run_behave_tests(dict_args)
 
 
-def _run_preflight_tests():
+def _run_preflight_checks():
+    try:
+        import behave
+    except ImportError:
+        raise Exception(
+            "'behave' is not installed! "
+            "Have you activated your virtualenv? "
+            "Have you installed the requirements.txt?")
     xvfb_running = _is_process_running('Xvfb')
     if not xvfb_running:
         raise Exception(
