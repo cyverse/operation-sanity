@@ -152,13 +152,16 @@ def run_behave_tests(dict_args):
         script_environ['SANITYDEBUG'] = "True"
     script_environ['SANITYSCREENSHOTDIR'] = dict_args["screenshot_dir"]
 
+    # Most Popen calls will expect commands to
+    # separate each argument/flag...
     behave_test_command = [
         'behave', '--tags',
         "@persist_browser,@%s" % dict_args["environment"],
         dict_args["feature"]
     ]
-
-    print "Executing Command: %s" % " ".join(behave_test_command)
+    # But behave doesnt work that way :)
+    behave_test_command = " ".join(behave_test_command)
+    print "Executing Command: %s" % behave_test_command
     proc = Popen(behave_test_command, shell=True, env=script_environ)
     returncode = proc.wait()
     if returncode != 0:
