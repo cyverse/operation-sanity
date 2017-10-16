@@ -71,6 +71,9 @@ def main():
         "--debug", action='store_true',
         help="Import ipdb and set debugger on a test failure.")
     parser.add_argument(
+        "--junit", action="store_true",
+        help="Run behave with special junit flags.")
+    parser.add_argument(
         "--skip-checks", action='store_true',
         help="Skip pre-flight checks (Behave exists, Xvfb process running, etc.)")
     arguments = parser.parse_args()
@@ -162,9 +165,12 @@ def run_behave_tests(dict_args):
 
     # Most Popen calls will expect commands to
     # separate each argument/flag...
-    behave_test_command = [
-        'behave', '--tags',
-        "@persist_browser,@%s" % dict_args["environment"],
+    behave_test_command = ['behave']
+    if dict_args['junit']:
+        behave_test_command += ["--junit", "--junit-directory ./reports"]
+    behave_test_command += ['--tags',
+        "@persist_browser,@%s" % dict_args["environment"]]
+    behave_test_command += [
         dict_args["feature"]
     ]
     # But behave doesnt work that way :)
