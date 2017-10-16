@@ -161,7 +161,9 @@ def run_behave_tests(dict_args):
     script_environ['SANITYPASS'] = dict_args["password"]
     if dict_args["debug"]:
         script_environ['SANITYDEBUG'] = "True"
-    script_environ['SANITYSCREENSHOTDIR'] = dict_args["screenshot_dir"]
+    # features/environment.py expects abspath
+    script_environ['SANITYSCREENSHOTDIR'] = os.path.abspath(
+        dict_args["screenshot_dir"])
 
     # Most Popen calls will expect commands to
     # separate each argument/flag...
