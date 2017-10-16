@@ -19,11 +19,12 @@ def i_wait_for_instance(context):
 @step(u'I wait up to {timeout:d} seconds for instance with name "{name}" and provider "{provider}" to finish building')
 @step(u'I wait for instance with name "{name}" and provider "{provider}" to finish building')
 def wait_for_instance_to_finish_building(context, name, provider, timeout=60):
-    xpath_no_status = "//tr[contains(td[2], '{}') and contains(td[7], '{}')]".format(name, provider)
+    name_with_underscores = name.replace('.','_')
+    xpath_no_status = "//tr[contains(td[2], '{}') and contains(td[7], '{}')]".format(name_with_underscores, provider)
     assert context.browser.is_element_present_by_xpath(xpath_no_status, wait_time=20), u'No such instance'
     building_status = 'build'
     xpath_with_status = "//tr[contains(td[2], '{}') and contains(td[7], '{}') and contains(td[3], '{}')]".format(
-        name,
+        name_with_underscores,
         provider,
         building_status
     )
