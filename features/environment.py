@@ -1,5 +1,5 @@
 import os
-
+import re
 import time
 import tempfile
 try:
@@ -50,15 +50,41 @@ def create_scenario_screenshot(context, scenario):
     except:
         pass
     return
+def _clean_step_name(title_str):
+    clean_str = re.sub("[^A-Za-z0-9\[\]() ]+", '', title_str)
+    return clean_str
+
+def _trim_traceback(traceback_str):
+    """
+    Expected traceback usually looks like this:
+    Traceback (most recent call last):\n  File "...", line ...., in ...\n    
+    ...
+    \n..raise <Exception class with details> _or_
+    \n..Exception: <Critical details>
+    """
+    start_ptr = traceback_str.rfind('raise')
+    if start_ptr < 0:
+        start_ptr = traceback_str.rfind('Exception')
+    if start_ptr < 0:
+        start_ptr = traceback_str.rfind('Error')
+    if start_ptr < 0:
+        start_ptr = 0
+    return traceback_str[start_ptr:start_ptr+64].strip()
+
 
 def create_step_screenshot(context, step):
     now = datetime.now()
-    prefix = "%s-%sStep-%s %s%s-" %  (
+    error_traceback = step.error_message
+    if len(error_traceback) > 64:
+        error_traceback = _trim_traceback(error_traceback)
+    cleaned_name = _clean_step_name(step.name)
+    prefix = "%s-%sStep-%s %s%s-" % (
             now.strftime("%Y%m%d_%H%M"),
-            step.status.title(), step.keyword, step.name,
-            "_ERROR: %s" % step.error_message if step.status == 'failed' else ""
+            step.status.title(), step.keyword, cleaned_name,
+            "_ERROR: %s" % error_traceback if step.status == 'failed' else ""
         )
     return _create_screenshot(context, prefix, ".png")
+
 
 def _create_screenshot(context, prefix, suffix):
     if not os.path.exists(SCREENSHOT_DIR):
