@@ -37,10 +37,11 @@ ENVIRONMENTS = [
     "jetstream-tacc",
     "jetstream-test-cloud"
 ]
+features_dir = os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), 'features')
 FEATURES = [
-    "unified_launch.feature",
-    "delete-instances.feature"
-]
+    feature for feature in
+    os.listdir(features_dir) if ".feature" in feature]
 
 
 def main():
