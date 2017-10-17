@@ -71,11 +71,7 @@ Before you run the test suite, you also need to populate an environment variable
 
 Please do not store your Atmosphere password persistently in plaintext.
 
-If using Chromium, set the SANITYBROWSER environment variable. (Firefox will be used if this is not set.)
-
-`export SANITYBROWSER=chrome`
-
-See `run_behave.sh` shell script for a working example, including reading the password safely.
+See `run_behave.py` shell script for a working example, including reading the password safely.
 
 ### Run tests:
 The test suite has been configured to be run using:  
@@ -91,7 +87,7 @@ To launch a bunch of instances specified by name, on specified providers:
 (See `unified_launch.feature` for available tags. `@persist_browser` is required.)
 
 To run a single feature:  
-`behave features/launch.feature`
+`behave features/check.feature`
 
 To run multiple scenarios in parallel (good for outlines):  
 `behave --processes 4 --parallel-element scenario`
