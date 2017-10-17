@@ -10,16 +10,16 @@ Feature: Delete, then launch all featured images
   @persist_browser
   Scenario: Create project
     Given a browser
-    And I migrate resources to project "BDD-02" if necessary
-    Then I create project "BDD-02" if necessary
+    And I migrate resources to project "BDD-01" if necessary
+    Then I create project "BDD-01" if necessary
 
   @persist_browser
   Scenario Outline: Delete launched instances
     Given a browser
     When I go to "/application/projects"
-    Then I should see an element with xpath "//h2[contains(string(), 'BDD-02')]" within 10 seconds
-    When I press the element with xpath "//h2[contains(string(), 'BDD-02')]"
-    Then I should see an element with xpath "//h1[contains(string(), 'BDD-02')]" within 10 seconds
+    Then I should see an element with xpath "//h2[contains(string(), 'BDD-01')]" within 10 seconds
+    When I press the element with xpath "//h2[contains(string(), 'BDD-01')]"
+    Then I should see an element with xpath "//h1[contains(string(), 'BDD-01')]" within 10 seconds
     And I wait for 2 seconds
     And I should skip this scenario if I do not see an instance with name "<image-name>" and provider "<provider>"
     When I press the checkbox for name "<image-name>" and provider "<provider>"
@@ -38,12 +38,12 @@ Feature: Delete, then launch all featured images
   Scenario Outline: Launch all featured images
     Given a browser
     When I go to "/application/projects"
-    Then I should see an element with xpath "//h2[contains(string(), 'BDD-02')]" within 10 seconds
-    When I press the element with xpath "//h2[contains(string(), 'BDD-02')]"
-    Then I should see an element with xpath "//h1[contains(string(), 'BDD-02')]" within 10 seconds
+    Then I should see an element with xpath "//h2[contains(string(), 'BDD-01')]" within 10 seconds
+    When I press the element with xpath "//h2[contains(string(), 'BDD-01')]"
+    Then I should see an element with xpath "//h1[contains(string(), 'BDD-01')]" within 10 seconds
     And I should skip this scenario if I see an instance with "<image-name>" and provider "<provider>"
     When I go to "/application/images"
-    And I migrate resources to project "BDD-02" if necessary
+    And I migrate resources to project "BDD-01" if necessary
     Then I should see "SEARCH" within 60 seconds
     And I should see an element with the css selector ".form-control" within 20 seconds
     When I type slowly "<image-guid>" to "0" index of class "form-control"
@@ -56,7 +56,7 @@ Feature: Delete, then launch all featured images
     And I should see "alloted GBs of Memory" within 10 seconds
     When I choose option "<provider>" from dropdown with label "Provider"
     And I choose option "<size>" from dropdown with label "Instance Size"
-    And I choose option "BDD-02" from dropdown with label "Project"
+    And I choose option "BDD-01" from dropdown with label "Project"
       # This button sometimes gives trouble
     And I press "Launch Instance"
     And I wait for 10 seconds
