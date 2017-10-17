@@ -27,7 +27,8 @@ def before_all(context):
         options = Options()
         options.binary_location = '/usr/bin/google-chrome'
         options.add_argument('headless')
-        options.add_argument('diable-gpu')
+        options.add_argument('window-size=1920,1080')
+        options.add_argument('disable-gpu')
         context.browser_args = {
             'options': options,
         }
