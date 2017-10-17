@@ -401,7 +401,7 @@ def step_impl(context):
     """
     :type context: behave.runner.Context
     """
-    words_in_scenario_name = context.scenario.name.split()
+    words_in_scenario_name = [word.strip() for word in context.scenario.name.split(',')]
     scenario_tags = [word[1:] for word in words_in_scenario_name if word.startswith('@')]
     chosen_runtime_tags = context.config.tags
     if not chosen_runtime_tags.check(scenario_tags):
