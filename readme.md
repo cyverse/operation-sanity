@@ -87,7 +87,7 @@ To launch a bunch of instances specified by name, on specified providers:
 (See `unified_launch.feature` for available tags. `@persist_browser` is required.)
 
 To run a single feature:  
-`behave features/launch.feature`
+`behave features/check.feature`
 
 To run multiple scenarios in parallel (good for outlines):  
 `behave --processes 4 --parallel-element scenario`

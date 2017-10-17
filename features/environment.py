@@ -1,7 +1,7 @@
 import os
 import re
-import time
 import tempfile
+
 try:
     from urlparse import urlparse, urlunsplit
 except ImportError:
@@ -13,10 +13,11 @@ from datetime import datetime
 
 # Flip this value to 'True' to enable a debugger on step-failure.
 BEHAVE_DEBUG_ON_ERROR = os.environ.get('SANITYDEBUG', False)
-WORKSPACE_ROOT = os.path.abspath(os.path.dirname(__file__)+"/..")
+WORKSPACE_ROOT = os.path.abspath(os.path.dirname(__file__) + "/..")
 default_screenshot_dir = os.path.join(WORKSPACE_ROOT, 'reports/screenshots')
 SCREENSHOT_DIR = os.environ['SANITYSCREENSHOTDIR'] if os.environ.get('SANITYSCREENSHOTDIR') \
-        else os.path.join(WORKSPACE_ROOT, 'reports/screenshots')
+    else os.path.join(WORKSPACE_ROOT, 'reports/screenshots')
+
 
 def before_all(context):
     benv.before_all(context)
@@ -34,26 +35,29 @@ def before_all(context):
         }
     context.base_url = get_base_url(os.environ['SANITYURL'])
 
+
 def after_all(context):
     benv.after_all(context)
 
 
 def create_scenario_screenshot(context, scenario):
-    # create_scenario_screenshot(context, scenario)
     now = datetime.now()
     prefix = "%s-%sScenario-%s-%s-" % (
-            now.strftime("%Y%m%d_%H%M"),
-            scenario.status.title(),
-            scenario.feature.name,
-            scenario.name)
+        now.strftime("%Y%m%d_%H%M"),
+        scenario.status.title(),
+        scenario.feature.name,
+        scenario.name)
     try:
         return _create_screenshot(context, prefix, ".png")
     except:
         pass
     return
+
+
 def _clean_step_name(title_str):
     clean_str = re.sub("[^A-Za-z0-9\[\]() ]+", '', title_str)
     return clean_str
+
 
 def _trim_traceback(traceback_str):
     """
@@ -70,7 +74,7 @@ def _trim_traceback(traceback_str):
         start_ptr = traceback_str.rfind('Error')
     if start_ptr < 0:
         start_ptr = 0
-    return traceback_str[start_ptr:start_ptr+64].strip()
+    return traceback_str[start_ptr:start_ptr + 64].strip()
 
 
 def create_step_screenshot(context, step):
@@ -80,10 +84,10 @@ def create_step_screenshot(context, step):
         error_traceback = _trim_traceback(error_traceback)
     cleaned_name = _clean_step_name(step.name)
     prefix = "%s-%sStep-%s %s%s-" % (
-            now.strftime("%Y%m%d_%H%M"),
-            step.status.title(), step.keyword, cleaned_name,
-            "_ERROR: %s" % error_traceback if step.status == 'failed' else ""
-        )
+        now.strftime("%Y%m%d_%H%M"),
+        step.status.title(), step.keyword, cleaned_name,
+        "_ERROR: %s" % error_traceback if step.status == 'failed' else ""
+    )
     return _create_screenshot(context, prefix, ".png")
 
 
@@ -93,6 +97,7 @@ def _create_screenshot(context, prefix, suffix):
     (fd, filename) = tempfile.mkstemp(prefix=prefix, suffix=suffix, dir=SCREENSHOT_DIR)
     context.browser.driver.get_screenshot_as_file(filename)
     return filename
+
 
 def after_step(context, step):
     """
