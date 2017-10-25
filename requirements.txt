@@ -6,9 +6,10 @@
 #
 behave==1.2.5             # via behaving
 behaving==1.5.6
+chromedriver-installer==0.0.6
 enum34==1.1.6             # via parse-type
-parse-type==0.3.4         # via behave
-parse==1.6.6              # via behave, behaving, parse-type
-selenium==2.53.5          # via splinter
-six==1.10.0               # via behave, parse-type
-splinter==0.7.3           # via behaving
+parse-type==0.4.2         # via behave
+parse==1.8.2              # via behave, behaving, parse-type
+selenium==3.6.0           # via splinter
+six==1.11.0               # via behave, parse-type
+splinter==0.7.6           # via behaving
