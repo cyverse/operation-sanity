@@ -27,9 +27,8 @@ def before_all(context):
         context.default_browser = 'chrome'
         options = Options()
         options.binary_location = '/usr/bin/google-chrome'
-        options.add_argument('headless')
-        options.add_argument('window-size=1920,1080')
-        options.add_argument('disable-gpu')
+        options.add_argument('--headless')
+        options.add_argument('--disable-gpu')
         context.browser_args = {
             'options': options,
         }
@@ -104,7 +103,8 @@ def after_step(context, step):
     https://pythonhosted.org/behave/tutorial.html#debug-on-error-in-case-of-step-failures
     """
     if step.status == "failed":
-        create_step_screenshot(context, step)
+        if context.screenshots_dir and hasattr(context, 'browser'):
+            create_step_screenshot(context, step)
         if BEHAVE_DEBUG_ON_ERROR:
             # -- ENTER DEBUGGER: Zoom in on failure location.
             import ipdb
